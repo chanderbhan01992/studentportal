@@ -1,0 +1,69 @@
+<table id="intern" class="table table-hover">
+    <tbody>
+    <tr>
+        <td id="linkdata" >
+     
+        <article id="" class="post-137294 post type-post status-publish format-standard hentry category-interview-experiences tag-amazon">
+				<header class="entry-header">
+						<h2 class="entry-title">
+                				<a href="/exp_{% if type == 'job' %}placed{% else %}{{ type }}{% endif %}/{{ i.id }}/" rel="bookmark">{{ i.cdr_id.company_id.display_name }} {{ type }} experience </a>
+                			&nbsp	
+            <span style="font-size:80%;color:#0f8383;" class="entry-title" >
+                    {% if i.onoffcampus == 1 %}
+                            ( On Campus )
+                    {% else %}  
+                            ( Off Campus )           
+                    {% endif %}
+                </span>
+
+<div class="post-date">{{ i.timestamp.date }}</div>
+                		
+	</h2>
+  </header>
+
+<!-- entry-header -->
+
+				
+		<div class="entry-summary">
+				<!-- Ico nic One home page thumbnail with custom excerpt -->
+                <div class="excerpt-thumb">
+                </div>
+    			<p>It consisted of {{ i.num_of_rounds }} rounds. {% if i.profile != "" %} Profile : {{ i.profile.display_name }}{% endif %}{% if i.criteria != "" %}. Criteria : {{ i.criteria }}{% endif %}.<br> Round 1 description : {{ i.round1_text.description | slice:":250"  }} .... <span class="read-more"><a href="/exp_{% if type == 'job' %}placed{% else %}{{ type }}{% endif %}/{{ i.id }}/">Read More &raquo;</a></span></p>
+		
+          </div><!-- .entry-summary -->
+				
+		
+
+		<footer class="entry-meta">
+        		<!--
+                <span>Category:
+                     <a href="" rel="category tag">{{ type }} Experiences</a>
+                </span> 
+    -->
+                <span>Tags: 
+                    <a href="/home/company_select/{{ i.cdr_id.company_id.id }}/{{ type }}/" rel="Visit co">{{ i.cdr_id.company_id.display_name }}</a>
+                </span>
+             <span>Author :</span>
+                <span style="color:#060 !important;">
+                     {{ i.userid.firstname }} {{ i.userid.lastname }} | {{ i.userid.email }} | {{ i.cdr_id.deptid.short_name }}
+                </span>
+ <span>Session :</span>
+                <span style="color:#060 !important;">
+                     {{ i.cdr_id.session }}
+                </span>
+
+<span>Status :</span>
+                <span style="color:#060 !important;">
+			{% with s=i.selected %}
+                     {% if s == 1 %}Accepted Offer{% else %}No Offer{% endif %}
+			{% endwith %}
+                </span>
+
+   	    </footer><!-- .entry-meta -->
+
+	</article><!-- #post -->
+
+        	</td>
+	</tr>
+    </tbody>
+  </table>

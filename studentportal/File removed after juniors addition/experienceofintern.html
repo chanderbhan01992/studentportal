@@ -1,0 +1,158 @@
+ <html>
+    <head>
+        <title>
+        {{ page_name }}
+        </title>
+    
+        {% include "homeheader.html" %}         
+    </head>
+
+    <body>
+
+    {% include "headercontent.html" %}
+
+    <div class="experience-content">
+<br>
+<div class="row">
+
+    <div class="col-md-3 userdetails">
+   <!-- 
+    <div class="setnumber">
+    SET {{ company.intern_exp_count }}
+    </div>
+    -->
+    <div class="personalinfo">
+ 
+<div class="row">
+<div class="col-md-4"><span><i class="fa fa-user"></i></span>
+</div>
+<div  class="col-md-* basic_details">
+
+<p class="name">{{ experience.userid.firstname }} {{ experience.userid.lastname }}</p>
+    <p class="deptname">{{ experience.cdr_id.deptid.short_name }}</p>
+ 
+</div>
+</div>
+<div class="row basic_details">
+    <p style="text-transform: lowercase;"> {{ experience.userid.email }}</p>
+    <p>CGPA :&nbsp;{% if experience.cgpa != "" %}{{ experience.cgpa }}{% else %} Not Mentioned {% endif %}</i></p>
+<br>
+
+
+</div>
+ 
+    
+    
+    </div>
+    </div>
+    
+    
+<div class="col-md-8 mid-content">
+         <div class="basic_interviewinfo">
+				
+	   	 <div class="row">
+				<div class=" section--left">Profile	</div> 
+				<div class=" section--right">{{ experience.profile.display_name }}</div>
+				</div>
+				<div class="row">
+				<div class="  section--left">Package/Stipend</div>	
+				 <div class="section--right">{% if experience.package != 0 %} INR {{ experience.package }} {% else %} Not Mentioned {% endif %} </div>    	 
+	   	 </div>
+	   	 
+	   	  <div class="row">
+				<div class=" section--left">Criteria</div> 
+				<div class=" section--right">{% if experience.criteria != "" %}{{ experience.criteria }} {% else %} Not Mentioned {% endif %}</div>
+				</div>
+				<div class="row">
+				<div class="  section--left">Session</div>	
+				 <div class=" section--right">{{ experience.cdr_id.session }}</div>    	 
+	   	 </div>
+			   	<div class="row ">
+				<div class="  section--left">Status</div>	
+				{% with s=experience.selected %}
+				<div class=" section--right">{% if s == 1 %}Accepted Offer{% else %}No Offer{% endif %}</div> 
+				{% endwith %}   	 
+				</div>
+
+  </div>
+  
+  <div class="rounddetails">
+ 
+  {% load app_filters %}
+  
+{% with rounds=experience.num_of_rounds %}
+
+     {% for i in list %}
+
+  {% if experience|key:i != None %}
+<div class="row title">
+<div class="section--left"><span class="section-title">Round {{ forloop.counter }}</span></div>
+<div class="section--right"><h3>{{ experience|key:i|key:"round_type"|key:"display_name" }} Interview </h3> </div>
+</div>
+
+
+{% with s=experience|key:i|key:"time" %}
+{% if s != 0 %}
+	<div class="row ">
+	<div class="section--left">Time </div>
+	<div class="section--right "> <strong>{{ experience|key:i|key:"time" }} mins</strong></div>
+	</div>
+
+
+	<div class="row ">
+	<div class="section--left">Difficulty </div>
+	{% with difficulty=experience|key:i|key:"difficulty"|key:"display_name"  %}
+	<div class="section--right ">{{ difficulty }}</div>
+	{% endwith %}
+	</div>
+
+
+{% endif %}
+{% endwith %}
+
+<div class="row ">
+<div class="section--left">Interview Experience</div>
+{% with description=experience|key:i|key:"description" %}
+<div class="section--right border"> {% if description != "" %} {{ description | linebreaks}} {% else %} Not Mentioned {% endif %}	</div>
+{% endwith %}
+</div>
+{% endif %}
+{% endfor %}
+ 
+{% endwith %}
+
+   
+<!-- Other comments -->
+<div class="row title">
+<div class="section--left"><span class="section-title">Additional</span></div>
+<div class="section--right"><h3>Other comments</h3> </div>
+</div>
+
+{% if experience.other_comments %}
+<div class="row ">
+<div class="section--left"></div>
+<div class="section--right border">  {{ experience.other_comments | linebreaks }} 	</div>
+</div>
+{% endif %}
+<!-- End of Other comments -->
+
+  
+  </div>
+  
+</div>
+
+</div>
+</div>
+
+
+<footer>
+<div class="footer-main-wrap">
+</div>
+</footer>
+
+
+    </body>
+
+
+</html>
+

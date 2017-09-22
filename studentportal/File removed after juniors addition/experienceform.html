@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+
+<title>Contribute Experience </title>
+<head>
+{% include "homeheader.html" %}
+
+<!-- WMD -->
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'CSS/wmd.css' %}"/>
+{% load staticfiles %}
+<script type="text/javascript" src="{% static 'JS/showdown.js' %}"></script>
+<!-- WMD ends here -->
+
+
+<!-- Quill -->
+{% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/quill.snow.css' %}">
+{% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/advanced.css' %}">
+<!-- -->
+{% include "headercontent.html" %}
+
+{% load app_filters %}
+<script type="text/javascript">
+
+
+var round_number=0;//None
+var flag=0;
+var recognizer = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
+var text="";
+recognizer.lang = 'en-US';
+recognizer.maxAlternatives = 0;
+// Recogniser doesn't stop listening even if the user pauses
+recognizer.continuous = true;
+recognizer.interimResults = true;
+  
+  			// Start recognising
+        recognizer.onresult = function(event) {
+          		
+          for (var i = event.resultIndex; i < event.results.length; i++) {
+						var out=event.results[i][0].transcript;
+          	   if (event.results[i].isFinal) {
+          	   
+             document.getElementById("textround"+round_number).value=text + out.charAt(0).toUpperCase() + out.slice(1) + ". ";
+             text=document.getElementById("textround"+round_number).value;
+				document.getElementById("buffer"+round_number).value="";
+             //console.log("final",i);
+             console.log("Text",text);
+             console.log("at 0 :",out);
+             
+            }
+              //document.getElementById("textround1").innerHTML=text+out;
+              document.getElementById("buffer"+round_number).value = out;
+          }
+
+        };     
+
+
+function abort(j) {
+round_number=j;
+   $("#start_img"+round_number).attr('src', "{% static 'IMAGES/mic.gif' %}");
+   $("#start_img"+round_number).attr('alt','Type by voice');
+
+var rounds = document.getElementById("rounds").value;
+var i=1;
+while(i <= rounds){
+
+	var round_id="#speech_img"+i;
+	$(round_id).removeAttr('hidden');	
+	i++;
+}
+
+
+document.getElementById("buffer"+round_number).value="";
+	recognizer.stop();
+	console.log('Stopped Listening '+round_number);
+	flag=0;
+	
+}
+
+//Taking input the round number
+function speech2text(j) {
+round_number=j;
+	var round_id="#speech_img"+j;
+	var rounds = document.getElementById("rounds").value;
+	var i=1;
+	while(i <= rounds){
+
+	round_id="#speech_img"+i;
+	if(i != j){
+	$(round_id).attr('hidden',"true");
+	}
+	
+	i++;
+}
+
+round_id="#start_img"+j;
+var buffer=document.getElementById("buffer"+round_number).value;
+if(flag==0){
+$(round_id).attr('src', "{% static 'IMAGES/mic-animate.gif' %}");
+$(round_id).attr('alt','Click to stop');
+console.log('Listening...'+round_number);
+text=document.getElementById("textround"+round_number).value;
+		
+recognizer.start();
+flag=1;
+}	
+	else {
+	
+
+		abort(j);
+}
+ 
+        
+}
+ 
+function display()
+{
+//alert('funciton');
+	var rounds = document.getElementById("rounds").value;
+	
+//alert(rounds);
+	var s= "";
+    	document.getElementById("displayrounds").innerHTML='';
+	var i=1;
+	while (i<=rounds) {
+//alert(i);
+
+s+="<div class='row'>";
+
+s+="<hr style='height:1px;border:none;color:#333;background-color:#333;' /><strong><p align='center' style='margin-bottom:2%'>Round " + i + " details </p></strong>"
+
+    s+="<div class='col-md-4'>";
+            s+="<label for='round'"+i+"'>Round Type</label> ";
+            s+="<select class='form-control' name='round"+i+"type'>{% for i in round_type %}<option value='{{ i.id }}'>{{ i.display_name }}</option>{% endfor %}</select>";
+    s+="</div>";       
+  
+    s+="<div class='col-md-4'>";
+        s+="<label for='round'"+i+"time'>Time in minutes</label>";
+        s+="<input type='text' class='form-control' name='round"+i+"time' id='round"+i+"time' value='30'/> ";
+	s+="<font color='red'> <DIV id='round"+i+"timer'> </DIV> </font>"
+    s+="</div>";
+      
+    s+="<div class='col-md-4'>";
+        s+="<label for='round'"+i+"level'>Difficulty level </label> ";
+        s+="<select class='form-control' name='round"+i+"level'>{% for i in difficulty_obj %}<option value='{{ i.id }}'>{{ i.display_name }}</option>{% endfor %}</select>";
+    s+="</div>";
+
+s+="</div>";
+
+s+="<input value='' readonly='True' id='buffer"+i+"' placeholder='Click on the microphone icon and begin speaking. Pause on end of sentence'  class='form-control margin-top' style='width:100%;height:50px;font-size:1em;border:1px solid black;opacity: 0.6;font-color:black;'>";
+  
+  s+=" <div class='inner-addon right-addon'>";
+
+  //src='https://speechlogger.appspot.com/images/micoff2.png'
+  //src='https://speechlogger.appspot.com/images/micon2.gif'
+ 
+s+="<div onclick='speech2text("+i+")' id='speech_img"+i+"'><span class='fa' style='z-index:1;top:5px;'><img style='border:2px solid grey;' alt='Type by voice' style='float: left;display: inline-block;' id='start_img"+i+"' src='{% static 'IMAGES/mic.gif' %}'></span>";
+s+="</div>";
+s+="<textarea id='textround"+i+"' placeholder='Fill your experience here' class='form-control margin-top' style='padding-right:2em;width:100%;height:300px;font-size:1.5em;z-index:0' name='round"+i+"'>"; 
+s+="</textarea><br><br><br>";
+s+="</div>";
+
+	i++;
+    }
+    document.getElementById("displayrounds").innerHTML=s;
+    
+}
+
+   function changeFunc()
+   {
+        var selectBox = document.getElementById("company");
+        var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+    
+        if(selectedValue=="other")
+        {
+            $("#newcompany").removeProp("display").css("display","block");
+        }
+        else
+        {
+            $("#newcompany").removeProp("display").css("display","none");
+        }
+     
+   }
+   
+   
+
+</script>
+</head>
+  <body> 
+{% csrf_token %}
+	 <form method="post" name="exp_form" action="" onsubmit="return validate_exp()">
+{% csrf_token %}
+	 <br><br>
+
+<div class="row">
+
+<div class="contribute_form">
+
+<div class="row">
+<ul>
+{% for i in err_msg %}
+<li><font color='red'> <DIV >{{ i }} </DIV> </font></li>
+{% endfor %}
+</ul>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <label for="Type">Type</label>
+        <select class="form-control" name="type">
+            <!-- <option value="" default>-- Select --</option> -->
+    		  <option value="0">Internship</option>
+            <option value="1">Placement/Job</option>
+        </select>
+  	</div>
+   
+    <div class="col-md-4">
+        <label for="profile">Profile</label>
+        <select class="form-control" name="profile" id="profile">
+               
+    			{% for i in profile_type %}
+    			<option value="{{ i.id }}">{{ i.display_name }}</option>
+    			{% endfor %}
+    		</select>        
+		<font color='red'> <DIV id="pfr"> </DIV> </font>
+    </div>
+    
+<div class="col-md-4">
+        <label for="selected">Status</label>
+        <select class="form-control" name="selected" id="selected">
+               
+    			<option value=1>Selected</option>
+    			<option value=0>Rejected</option>
+
+    		</select>        
+		
+    </div>
+
+</div>
+        
+<br>
+
+    <label for="criteria">Enter Job/Intern Criteria if any : &nbsp</label>
+        <input class="form-control" type="text" width="80px" name="criteria" id="criteria" size="70" placeholder="The company had a pointer criteria of 7.5 and no current backlogs"/>
+    <br>
+
+
+<div class="row">
+    <div class="col-md-6">
+        <label for="company">Choose company : </label>
+    		<select class="form-control" onchange="changeFunc();" name="company" id="company">
+                    <option value="" default>-- Select --</option>
+    			{% for comp in comp_list %}
+    			<option value="{{ comp.id }}">{{comp.company_name}}</option>
+    			{% endfor %}
+                    <option value="other">Other</option>
+    		</select>
+		
+    </div>
+    
+    <div class="col-md-6">
+    <br>
+        <select class="form-control" name="On-Off campus">
+        <option value="1">On Campus</option>
+        <option value="0">Off Campus</option>
+        </select>
+    </div>
+
+<br>
+
+</div>
+
+
+<div id="newcompany" style="display:none;">
+<input class="form-control" type="text" placeholder="Enter company's name" id="new_company" name="new_company"/>
+(A request will be sent to the Admin for the New company)
+</div>
+<font color='red'> <DIV id="cpr"> </DIV> </font>
+<br>
+
+
+
+<div class="row">
+<script>
+
+function ch(){
+var textValue1 = document.getElementById('amount').value;
+var textValue2 = document.getElementById('package').value;
+ 
+document.getElementById('total-amount').value = textValue1 * textValue2;
+}
+</script>
+
+    <div class="col-md-4" >
+
+    <label for="package">Package/Stipend</label>
+
+<div style="position:absolute;right:10px;" >
+<select onchange="ch();" id='amount' name="amount" class="form-control" >
+        <option value="1000" default>Thousand</option>
+        <option value="100000">Lakhs</option>
+    </select>
+</div>
+
+    <input type="text" onchange="ch();" class="form-control" id="package" name="package" placeholder="Enter amount">
+</input>
+   
+
+	<font color='red'> <DIV id="pckgr"> </DIV> </font>
+
+    </div>
+
+
+    <div class="col-md-3" style="top:5px;">
+ 
+    <br>
+    <input type="number" readonly class="form-control" id="total-amount" name="total-amount" placeholder="total-amount">
+</input>
+    </div>
+
+<!--
+<p> If the company is not in the list Kindly <a href="new_company_request">click here</a> to send us a notification regarding the same </p>
+-->
+    <div class="col-md-4" style="top:5px;">
+    <br>
+    <input type="text" class="form-control" placeholder="Current CGPA" id="cgpa" name="cgpa"/>
+     <font color='red'> <DIV id="cgpar"> </DIV> </font>
+    </div>
+
+</div>
+
+<br>
+<!-- added this on 11th june -->
+<div class="row">
+<div class="col-md-4">
+<label for="session">Session or year</label>
+ <select class="form-control" id="session" name="session">
+        <option value="2016-17">2016-17</option>
+        <option value="2015-16">2015-16</option>
+        <option value="2014-15">2014-15</option>
+        <option value="2013-14">2013-14</option>
+    </select>
+</div>
+</div>
+<!-- 11th june end -->			
+				
+<br>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <label for="rounds">Enter no. of rounds of interview :</label>
+        <select name="rounds" class="form-control" id="rounds" onchange="display()">
+        <option value="0" default>-- Select --</option>	
+        {% for i in "123456" %}
+        <option value="{{forloop.counter}}">{{forloop.counter}}</option>
+        {% endfor %}
+        </select>
+	<font color='red'> <DIV id="nrr"> </DIV> </font>
+    </div>
+</div>
+
+<br><br>
+<div id="displayrounds"> </div>
+    <label for="content-container">General Tips / Other comments :</label>
+    
+{% include "advanced.html" %}
+<input type="submit" class="btn btn-success btn-block" name="submit" value="Submit Experience"><span class="glyphicon glyphicon-off"></span></input>	
+<br>
+
+</div>
+</div>
+ 
+
+	 </form> 
+	
+
+  </body>
+  </html>

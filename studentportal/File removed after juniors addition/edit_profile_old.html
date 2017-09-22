@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+  <title>Edit your profile </title>
+
+{% include "homeheader.html" %} 
+
+{% load staticfiles %}
+<script>
+
+function display_password_change(){
+
+$('.password_change').css('display','block');
+}
+
+</script>
+
+</head>
+
+
+<body >
+
+
+{% include "headercontent.html" %}  
+    
+{% csrf_token %}
+	 <form method="post" name="editprof_form" action="" onsubmit="return validate_editprof_Form()">
+{% csrf_token %}
+
+
+<div class="row">
+<div class="col-md-12"></div>
+</div>
+
+
+<div class="row">
+
+<div class="col-md-3 edit_options">
+<div class="row">
+<div class="editprofile_user">
+
+<div class="col-md-4"><span><i class="fa fa-user"></i></span></div>
+<div class="col-md-* basic_details">
+<div >{{ fname }}&nbsp;{{ person_obj.lastname }}</div>
+<br>
+<div>
+{% if person_obj.roleid.display_name == "Admin" %}
+<span><i class="fa fa-graduation-cap"></i></span>
+{% else %}
+<span><i class="fa fa-lock"></i></span>
+{% endif %}
+
+{{ person_obj.roleid.display_name }}
+</div>
+
+</div>
+
+</div>
+</div>
+
+
+<div class="row">
+<ul>
+<!--<li><button class="editprofile_button">Profile</button></li>
+<li><button class="editprofile_button" onclick="location.href='/home/admin_request/'">Change Password</button></li>
+<li><button class="editprofile_button">Edit your Experiences shared</button></li>	-->
+
+{% if loginas == "HOD" %}
+
+Already existing programs of your department :
+
+<li><button type="button" id="myBtn4" class="editprofile_button">Add Program</button></li>
+{% include "addProgrammodal.html" %}
+
+
+
+{% for i in deptobj %}
+   <div>{{ i.short_name }} : {{ i.degree_level }} : {{ i.program }} </div> 
+{% endfor %}
+
+
+{% else %}
+
+      {% if loginas == "Admin" %}
+
+           
+            <br>
+            <button type="button" onclick="location.href='/home/admin_request/'" id="AdminRequest" class="editprofile_button" >Accept Company Requests</button>
+            <br>
+            <button type="button" onclick="location.href='/home/add_tnp_head/'" id="AddTNPHead" class="editprofile_button" >Add/Remove TNP Head</button>
+            <br>
+            <button type="button" onclick="location.href='/home/add_admin/'" id="AddAdmin" class="editprofile_button" >Add/Remove Admin</button>
+
+            {% endif %}
+
+            {% if loginas == "TNP Head" %}
+        
+            <br>
+            <button type="button" onclick="location.href='/home/exp_request/'" id="ExpRequest" class="editprofile_button" >Accept Experience Requests</button></li>
+
+            {% endif %}
+
+{% endif %} 
+
+
+</ul>
+</div>
+
+</div>
+
+<div class="col-md-7 profile_content">
+<div class="row">
+<ul>
+{% for i in err_msg %}
+<li><font color='red'> <DIV >{{ i }} </DIV> </font></li>
+{% endfor %}
+</ul>
+</div>
+
+<!-- Names -->
+<div class="row">
+    <div class="col-md-6">
+      		<label for="fname" class="control-label" >First Name</label> <br>
+      		<input type="text" id="fname" class="form-control"   value="{{ person_obj.firstname }}" name="fname">
+		<font color='red'> <DIV id="fnr_ep"> </DIV> </font>
+    </div>
+    
+    <div class="col-md-6">
+      		<label for="lname" >Last Name</label> <br>
+      		<input type="text" id="lname" class="form-control" value="{{ person_obj.lastname }}" name="lname">
+		<font color='red'> <DIV id="lnr_ep"> </DIV> </font>
+    </div>
+</div>
+<!-- Names over -->
+
+<div class="row">
+        <div class="col-md-6">
+		<label for="email">Email</label>
+		<input type="text" id="email" class="form-control" readonly value="{{ person_obj.email }}" name="email">
+        </div>
+
+        <div class="col-md-6">
+         <label for="clg_id">College id</label>
+		<input type="text" class="form-control" style="color:grey" readonly value="{{ person_obj.clg_id }}" id="clg_id" name="clg_id">
+        </div>
+
+</div>
+
+
+<div class="row">
+		
+        <div class="col-md-6">  
+		<label for="telephone1">Mobile</label>
+		<input type="text" class="form-control" value="{{ person_obj.telephone1 }}" id="telephone1" name="telephone1">
+		<font color='red'> <DIV id="mbr1_ep"> </DIV> </font>
+        </div>
+
+        <div class="col-md-6"> 
+		<label for="telephone2">Mobile/Telephone</label>
+		<input type="text" class="form-control" value="{{ person_obj.telephone2 }}" id="telephone2" name="telephone2">
+		<font color='red'> <DIV id="mbr2_ep"> </DIV> </font>
+        </div>
+
+</div>
+
+
+
+<div class="row">
+    
+		 <div class="col-md-6">
+         <label for="dept">Department</label>
+		<input type="text" class="form-control" style="color:grey; width:200px;" readonly value="{{ deptname }}" id="dept" name="dept">
+        </div>
+
+    <div class="col-md-6">
+		<label for="roll_no">Roll Number</label>
+		<input type="text" class="form-control" id="roll_no" style="color:grey" readonly value="{{ person_obj.roll_no }}" name="roll_no"> 
+    </div>
+</div>
+
+<!-- PAssword -->
+
+<div class="row">
+
+<input type="button" onclick="display_password_change()" class=" editprofile_button btn" value="Change your password "> </input>
+<br><br>
+<div class="password_change" style="display:none;">
+ <div class="col-md-4">
+        <label for="oldpassword">Old Passsword</label>
+		<input type="password" class="form-control" value="" id="oldpasssword" name="oldpassword">
+    	</div>
+
+    <div class="col-md-4">
+        <label for="password1">New Passsword</label>
+		<input type="password" class="form-control" value="" id="passsword1" name="password1">
+		<font color='red'> <DIV id="passr1_ep"> </DIV> </font>
+    	</div>
+
+    <div class="col-md-4">
+        <label for="password2">New Passsword again</label>
+		<input type="password" class="form-control" value="" id="passsword2" name="password2">
+		<font color='red'> <DIV id="passr2_ep"> </DIV> </font>
+	</div>
+	</div>
+</div>
+
+<!-- Password again -->
+
+
+<!-- FUTURE CHANGE- ADD EDIT OPTION TO USERS FOR EDITING INTERNSHIP AND JOB INTERVIEW DETAILS 
+<p>Internship Experience details : </p>
+
+
+{% with exp as jobexp_obj.count %}
+
+{% if exp == 0 %}
+<p> No contributions to edit </p>
+{% endif %}
+
+{% endwith %}
+
+
+
+
+<br><br>
+
+<div id="displayrounds"> </div>
+
+
+{% for i in jobexp_obj %}
+<input type="button" value="{{forloop.counter}}"
+ onclick="display_rounds('{{i.package}}',{{i.cgpa}},{{i.num_of_rounds}},'{{i.round1_text}}','{{i.round2_text}}','{{i.round3_text}}','{{i.round4_text}}','{{i.round5_text}}','{{i.round6_text}}','{{i.other_comments}}',{{forloop.counter}})"></p>
+{% endfor %}
+
+
+
+<hr>	
+
+<p>Job Experience details : </p>
+
+<br><br>
+	
+--> 
+<br><br>
+<input type="submit"  class="btn editprofile_button" name="submit" value="Update Details" ></input>
+
+<br><br>
+
+</div>
+<!-- End of mid content -->
+	
+<div class="col-md-*"></div>
+
+
+</div>
+
+
+<footer>
+<div class="footer-main-wrap">
+</div>
+</footer>
+
+
+</form> 
+
+
+  </body>
+  </html>
