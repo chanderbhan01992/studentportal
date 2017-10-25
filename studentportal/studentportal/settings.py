@@ -26,7 +26,13 @@ SECRET_KEY = 'uics1l*7tnrwc0#wl705d4tluz@bn!-qxh$^qcsz(*qdl7z4zr'
 DEBUG = True
 TEMPLATE_DEBUG=DEBUG
 
-ALLOWED_HOSTS = ['127.0.0.1', '192.168.2.79', '0.0.0.0','studentportal.vnit.ac.in', 'www.studentportal.vnit.ac.in', '210.212.165.236', '10.18.0.8']
+ALLOWED_HOSTS = ['127.0.0.1',
+                 '192.168.2.79',
+                 '0.0.0.0',
+                 'studentportal.vnit.ac.in',
+                 'www.studentportal.vnit.ac.in',
+                 '210.212.165.236',
+                 '10.18.0.8']
 
 #Email settings
 EMAIL_USE_TLS = True
@@ -34,7 +40,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'studentportal@students.vnit.ac.in' 
 EMAIL_HOST_PASSWORD = 'lengthyproject'
-
 
 # Application definition
 # Holds the names of all Django applications that are activated in this django instance.
@@ -46,6 +51,7 @@ INSTALLED_APPS = (
     'django.contrib.messages', #A messaging framework.
     'django.contrib.staticfiles', #A framework for managing static files.
     'portalapp',
+    'clubsapp',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -65,7 +71,7 @@ ROOT_URLCONF = 'studentportal.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [os.path.join(BASE_DIR,'templates'),os.path.join(BASE_DIR,'clubsapp/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -95,19 +101,12 @@ PASSWORD_HASHERS = [
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-'''
-DATABASES = {
-    'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'studentportal',
-            'USER': 'root',
-            'PASSWORD': 'studentportal@123',
-            'HOST': 'studentportal.ces0h2i088mi.us-west-2.rds.amazonaws.com',
-            'PORT': '3306',
-        }
-}
 
-'''
+''' Work with this db while working with amazon host'''
+
+#  'HOST': 'studentportal.ces0h2i088mi.us-west-2.rds.amazonaws.com',
+
+''' Work with this db while working on server'''
 DATABASES = {
     'default': {
        'ENGINE': 'django.db.backends.mysql',
@@ -118,18 +117,19 @@ DATABASES = {
         'PORT' : '3306',
     }
 }
-'''
-DATABASES = {
-    'default': {
-       'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dummy',
-        'USER' : 'studentportal',
-        'PASSWORD' : 'studentportal123',
-        'HOST' : 'localhost',
-        'PORT' : '3306',
-    }
-}
-'''
+
+''' Work with this db while working on local'''
+# DATABASES = {
+#     'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'dummy',
+#         'USER' : 'studentportal',
+#         'PASSWORD' : 'studentportal123',
+#         'HOST' : 'localhost',
+#         'PORT' : '3306',
+#     }
+# }
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -149,4 +149,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 ''' STATICFILES_DIRS is the list of folder where Django will search for additional static files, in addition to each static folder of each app installed. '''
 ''' Since we have only the root static folder of the 'portalapp' we can comment the below '''
-#STATICFILES_DIRS = ["/home/studentportal/studentportal/portalapp/static",]
+STATICFILES_DIRS = [
+    "/home/studentportal/studentportal/portalapp/static",
+    "/home/studentportal/studentportal/clubsapp/static"
+                ]
