@@ -12,10 +12,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
@@ -43,16 +40,21 @@ EMAIL_HOST_PASSWORD = 'lengthyproject'
 
 # Application definition
 # Holds the names of all Django applications that are activated in this django instance.
-INSTALLED_APPS = (
+PREREQUISITE_APPS= [
     'django.contrib.admin', #The admin site. 
     'django.contrib.auth', #An authentication system.
     'django.contrib.contenttypes', #A framework for content types.
     'django.contrib.sessions', #A session framework.
     'django.contrib.messages', #A messaging framework.
     'django.contrib.staticfiles', #A framework for managing static files.
+    ]
+
+PROJECT_APPS=[
     'portalapp',
-    'clubsapp',
-)
+   #'clubsapp',
+]
+
+INSTALLED_APPS = PREREQUISITE_APPS + PROJECT_APPS
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -71,14 +73,16 @@ ROOT_URLCONF = 'studentportal.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates'),os.path.join(BASE_DIR,'clubsapp/templates')],
+        'DIRS': [
+            os.path.join(BASE_DIR,'../templates'),
+            os.path.join(BASE_DIR,'../clubsapp/templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.core.context_processors.request', #Pagination
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
-                
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -87,7 +91,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'studentportal.wsgi.application'
-
 
 #Password hashing
 PASSWORD_HASHERS = [
@@ -98,38 +101,10 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.BCryptPasswordHasher',
 ]
 
-
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
 ''' Work with this db while working with amazon host'''
-
 #  'HOST': 'studentportal.ces0h2i088mi.us-west-2.rds.amazonaws.com',
-
-''' Work with this db while working on server'''
-DATABASES = {
-    'default': {
-       'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'portal_storage',
-        'USER' : 'studentportal',
-        'PASSWORD' : 'studentportal123',
-        'HOST' : 'localhost',
-        'PORT' : '3306',
-    }
-}
-
-''' Work with this db while working on local'''
-# DATABASES = {
-#     'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'dummy',
-#         'USER' : 'studentportal',
-#         'PASSWORD' : 'studentportal123',
-#         'HOST' : 'localhost',
-#         'PORT' : '3306',
-#     }
-# }
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
