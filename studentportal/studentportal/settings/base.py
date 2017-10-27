@@ -106,6 +106,9 @@ PASSWORD_HASHERS = [
 ''' Work with this db while working with amazon host'''
 #  'HOST': 'studentportal.ces0h2i088mi.us-west-2.rds.amazonaws.com',
 
+# The databases are defined in other settings file
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
