@@ -14,3 +14,9 @@ DATABASES = {
         'PORT' : '3306',
     }
 }
+
+PROJECT_APPS=[
+    'portalapp',
+]
+
+INSTALLED_APPS = PREREQUISITE_APPS + PROJECT_APPS

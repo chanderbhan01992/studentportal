@@ -49,13 +49,6 @@ PREREQUISITE_APPS= [
     'django.contrib.staticfiles', #A framework for managing static files.
     ]
 
-PROJECT_APPS=[
-    'portalapp',
-   #'clubsapp',
-]
-
-INSTALLED_APPS = PREREQUISITE_APPS + PROJECT_APPS
-
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
