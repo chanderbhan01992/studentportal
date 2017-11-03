@@ -7,9 +7,7 @@
 .idea/
 clubsapp/migrations/
 portalapp/migrations/
-.idea/workspace.xml
 *.xml
-*.iml
 
 # Executables
 *.pyc

@@ -24,7 +24,6 @@ def clubs( request ):
 
 def clubHome(request,clubName):
      # Take pagename, find in db ,extract data and use it here.
-
     #Use clubName to get exact CLubName
 
     args = {'page_name': "",
