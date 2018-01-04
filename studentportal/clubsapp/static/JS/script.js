@@ -116,6 +116,7 @@ $( document ).ready(function() {
     transition: function(url){ window.location.href = url; }
   });
 
+
   /* ------------------------------------- */
   /* Masonry Grid    ................... */
   /* ------------------------------------- */
@@ -146,6 +147,29 @@ $( document ).ready(function() {
         $grid.masonry();
       });
     });
+
+
+//manage header height of club page
+$(function(){
+  var x = window.innerHeight - $('.hero').offset().top;
+  document.getElementById('hero').style.height = x +"px";
+  $('.hero').prepend('<div class="scroll" id="scroll"><img src="../../static/IMG/arrows.png"/></div>');
+
+});
+//$(window).resize(function(){
+  //location.reload();
+//});
+//sliding scroll
+$(function(){
+  $('.scroll').click(function(){
+    $('body, html').animate({
+      scrollTop: $('.about').offset().top
+    },1200);
+  });
+});
+
+
+
 
  /* ------------------------------------- */
  /* Project Gallery   ................... */
@@ -658,7 +682,6 @@ $(function() {
 
 });
 
-
 $(function(){ /* to make sure the script runs after page load */
 
 	$('.event-desp').each(function(event) { /* select all divs with the item class */
@@ -714,8 +737,103 @@ $(function(){ /* to make sure the script runs after page load */
 
     });
 });
-//$(document).ready(function(){
-  //$('.jsslide').bxSlider();
-//});
+
+$(function(){ /* to make sure the script runs after page load */
+
+	$('.postDescription').each(function(event) { /* select all divs with the item class */
+
+            var max_length = 180;
+            /* set the max content length before a read more link will be added */
+
+            if ($(this).html().length > max_length) { /* check for content length */
+
+                var short_content = $(this).html().substr(0, max_length);
+                /* split the content in two parts */
+                var long_content = $(this).html().substr(max_length);
+
+                $(this).html(short_content+
+                '<a href="#" class="read_more">...read more</a>' +
+                    '<span class="more_text" style="display:none;">' + long_content + '</span>' );
+                /* Alter the html to allow the read more functionality */
+
+                $(this).find('a.read_more').click(function (event) { /* find the a.read_more element within the new html and bind the following code to it */
+
+                    event.preventDefault();
+                    /* prevent the a from changing the url */
+                    if (window.innerWidth <768){
+
+                        $(this).hide();
+                        /* hide the read more button */
+                        $(this).parents('.postDescription').find('.more_text').show();
+                        /* show the .more_text span */
+                    }
+
+
+
+
+
+                });
+            }
+            else{
+                if(window.innerWidth > 768){
+                    var short_content = $(this).html().substr(0, max_length);
+                    $(this).html(short_content + "...read more");
+                }
+            }
+
+
+    });
+
+
+
+
+
+});
+
+//overlay effect
+
+function hide_overlay() {
+                document.getElementById('overlay').style.display="none";
+            }
+function show_overlay(mydata){
+    if(window.innerWidth >768){
+        $("body").prepend($('.'+mydata));
+                        //overlay if screen is greater than 767px
+                        //document.getElementById('overlay').style.display="block";
+                        $('.'+mydata).show();
+    }
+
+}
+
+
+jQuery(function($) {
+
+  // Function which adds the 'animated' class to any '.animatable' in view
+  var doAnimations = function() {
+
+    // Calc current offset and get all animatables
+    var offset = $(window).scrollTop() + $(window).height(),
+        $animatables = $('.animatable');
+
+    // Unbind scroll handler if we have no animatables
+    if ($animatables.size() == 0) {
+      $(window).off('scroll', doAnimations);
+    }
+
+    // Check all animatables and animate them if necessary
+		$animatables.each(function(i) {
+       var $animatable = $(this);
+			if (($animatable.offset().top + $animatable.height() - 20) < offset) {
+        $animatable.removeClass('animatable').addClass('animated');
+			}
+    });
+
+	};
+
+  // Hook doAnimations on scroll, and trigger a scroll
+	$(window).on('scroll', doAnimations);
+  $(window).trigger('scroll');
+
+});
 
 
