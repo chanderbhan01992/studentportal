@@ -124,7 +124,7 @@ def loadContactDetailsData():
             contact.save()
 
 ''' Downloads All the events from facebook'''
-def facebook_events :
+def downloadFacebookEvents :
 
     # url for getting events
     eventurl = URL_HEAD + fbid + '/events?limit=6&access_token=' + FB_TOKEN
@@ -158,7 +158,7 @@ def facebook_events :
 
 
 '''Load Gallery Images'''
-def facebook_gallery:
+def loadGallery:
 
     club = Club.objects.get(pk=12)
     #location = 'images/12/' #before running the file uncomment the location
@@ -192,8 +192,8 @@ def facebook_gallery:
         print "Done" + imgname
     print "Complete Club"
 
-
-def facebook_post:
+''' Download Fb post'''
+def downloadFacebookPost:
 
     # url for getting events
     posturl = URL_HEAD + fbid + '/posts?fields=full_picture,message,created_time&limit=8&access_token=' + FB_TOKEN
