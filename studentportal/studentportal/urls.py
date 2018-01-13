@@ -13,8 +13,10 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import include , url
+from django.conf.urls import include , url , static
+#from django.conf.urls.static import static
 from django.contrib import admin
+import settings.base
 from django.conf.urls import (handler404 , handler500)
 
 handler404 = 'portalapp.views.page_not_found'
@@ -55,8 +57,8 @@ urlpatterns = [
 ]
 
 # give url to media directory
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.base.DEBUG:
+    urlpatterns += static.static(settings.base.MEDIA_URL, document_root=settings.base.MEDIA_ROOT)
 
 '''  
 

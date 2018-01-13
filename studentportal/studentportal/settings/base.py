@@ -124,6 +124,6 @@ STATICFILES_DIRS = [
     "/home/studentportal/studentportal/portalapp/static",
     "/home/studentportal/studentportal/clubsapp/static"
                 ]
-MEDIA_URl = '/media/'
+MEDIA_URL = '/media/'
 ''' MEDIA_ROOT is the folder where every uploaded files will be stored after a manage.py collectstatic '''
 MEDIA_ROOT = 'clubsapp/media/'
