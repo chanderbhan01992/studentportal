@@ -1,0 +1,20 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Actionscript template
+
+# Build and Release Folders
+portalenv/
+resources/build/
+
+# Other files and folders
+.idea/
+clubsapp/migrations/
+portalapp/migrations/
+*.xml
+.DS_Store
+
+# Executables
+*.pyc
+
+# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
+# should NOT be excluded as they contain compiler settings and other important
+# information for Eclipse / Flash Builder.
