@@ -1,3 +1,4 @@
+# coding: utf-8
 import sys,os
 import csv
 from datetime import datetime
@@ -6,6 +7,8 @@ import requests
 import urllib2
 import json
 import datetime
+import random, string
+
 import dateutil.parser
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
@@ -16,6 +19,7 @@ BASE_DIR = os.path.dirname(
                             os.path.abspath(__file__)
                         )
                     )
+
 
 DJANGO_PROJECT_HOME = os.path.dirname(
                 os.path.dirname(
@@ -32,14 +36,16 @@ print "Importing Done :)"
 
 
 ''' FILES AND DIRECTORIES '''
-DIRECTORY_CSVFILES = "\CSVFiles"
-FILE_CSV_CLUBS = BASE_DIR + DIRECTORY_CSVFILES + "\Club.csv"
-FILE_CSV_CONTACT_DETAILS = BASE_DIR + DIRECTORY_CSVFILES + "\ContactDetails.csv"
-
+DIRECTORY_CSVFILES = "/CSVFiles"
+FILE_CSV_CLUBS = BASE_DIR + DIRECTORY_CSVFILES + "/Club.csv"
+FILE_CSV_CONTACT_DETAILS = BASE_DIR + DIRECTORY_CSVFILES + "/ContactDetails.csv"
+FILE_CSV_FACULTY = BASE_DIR + DIRECTORY_CSVFILES + "/Faculty.csv"
 ''' Facebook token'''
-FB_TOKEN = ''
+FB_TOKEN = 'EAACEdEose0cBAFjpvP2kTcGIpNUyuNIcf4oMwfZCqcyqw9rEdQ2w4eGsKRmpMXMG8kLxqQRB9lJ59xZBuRKdJW9zNt6PtGaPBrCWSrMZAe30ZAOZCz7UPiv6syqpqNewchwD5tOdDV5CLHEuUeDqs8lEjYKsYmDO03JiZBGZCwDZAGiwUwdoFvO0Ttb8x4fM1oZC9pZAJOEe2rTaYSxF4qtrwp'
+
 '''URL HEAD'''
-URL_HEAD = 'https://graph.facebook.com/v2.11/'
+
+URL_HEAD='https://graph.facebook.com/v2.12/'
 
 '''Creating Global FB ID variables'''
 FACEBOOK_PAGE_ID = {
@@ -56,6 +62,8 @@ FACEBOOK_PAGE_ID = {
     'iiche' : '1492529371023579',
     'hallabol' : '109896629705563'
 }
+'''’Change FBID manually'''
+fbid = FACEBOOK_PAGE_ID['hallabol']
 
 
 ''' Parse Date ANd Time'''
@@ -93,15 +101,17 @@ def loadClubsData():
             club.shortName = row[1]
             club.longName = row[2]
             club.displayName = row[3]
-            club.aboutUs = row[4]
+            club.aboutUs = str(row[4])
             club.yearOfStart = row[5]
 
-            personInfoObject = Personinformation.objects.get(clg_id=15616)
-            print personInfoObject
-            club.president = personInfoObject
+            #personInfoObject = Personinformation.objects.get(clg_id=17075)
+            #print personInfoObject
+            #club.president = personInfoObject
+	    club.president = str(row[6])
 
             club.clubType = row[7]
-            club.facultyInCharge1 = row[8]
+            club.facultyInCharge1 = str(row[8])
+	    print club.facultyInCharge1
             club.facultyInCharge2 = row[9]
             contact_detail = ContactDetails.objects.get(id=row[10])
             print contact_detail
@@ -124,7 +134,7 @@ def loadContactDetailsData():
             contact.save()
 
 ''' Downloads All the events from facebook'''
-def downloadFacebookEvents :
+def downloadFacebookEvents ():
 
     # url for getting events
     eventurl = URL_HEAD + fbid + '/events?limit=6&access_token=' + FB_TOKEN
@@ -136,32 +146,37 @@ def downloadFacebookEvents :
         event = Event()
         event.heading = data['name']
         print event.heading + " loading..."
-        event.description = data['description']
-        event.place = data['place']['name']
+	try:
+		event.description = data['description']
+	except:
+		continue
+	try:
+		event.place = data['place']['name']
+	except:
+		continue
 
         event.date = to_date(data['start_time'])
         event.time = to_time(data['start_time'])
         event.save()
 
         cer = ClubEventRelationship()
-        cerclub = Club.objects.get(pk=11)
+        cerclub = Club.objects.get(pk=12)
         cer.club = cerclub
         print cerclub
-
         cerevent = event
         print cerevent
         cer.event = cerevent
         cer.save()
         print "DONE"
 
-    print "complete"
+    print "complete "+fbid
 
 
 '''Load Gallery Images'''
-def loadGallery:
+def loadGallery():
 
     club = Club.objects.get(pk=12)
-    #location = 'images/12/' #before running the file uncomment the location
+    location = 'images/12/' #before running the file uncomment the location
     # os.chdir(location)
     # os.getcwd()
     for file in os.listdir(location):
@@ -193,7 +208,7 @@ def loadGallery:
     print "Complete Club"
 
 ''' Download Fb post'''
-def downloadFacebookPost:
+def downloadFacebookPost():
 
     # url for getting events
     posturl = URL_HEAD + fbid + '/posts?fields=full_picture,message,created_time&limit=8&access_token=' + FB_TOKEN
@@ -262,4 +277,4 @@ def downloadFacebookPost:
 
 if __name__ == '__main__':
     #Run whichever method you want to run
-    loadClubsData ( )
+    loadGallery ()

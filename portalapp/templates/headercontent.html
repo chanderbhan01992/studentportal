@@ -1,3 +1,4 @@
+
 <style>
     @media screen and (min-width: 992px){
         .columns{
@@ -183,6 +184,7 @@ $(document).ready(function() {
             {% endfor %}
             </ul>
         </li>
+	<li><a href="/clubs/">Clubs</a></li>
       </ul>
 {% load app_filters %}
       <ul class="nav navbar-nav navbar-right">
@@ -262,17 +264,17 @@ experience_saved="{{experience_saved}}"
 </script>
 	
 {% if page_name == "homepage" %} <!-- Display top only for mainpage -->
-<div class="container" style="background-color:white;">
+<div class="container" style="background-color:white; width:100%;">
 <div class="row" style="background-color:white;">
   <div class="col-md-2 margin-top">
 {% load staticfiles %}<img class="img-responsive margin-top" height="150px" width="150px" style="margin: 0 auto;" alt="VNIT LOGO" src="{% static 'IMAGES/VNIT-Nagpur-Logo.jpg' %}"/>
 </div>
 
-  <div class="col-md-8"><h2 id="name" style="margin-top:4%;" align="center">VISVESVARAYA NATIONAL INSTITUTE OF TECHNOLOGY</h2></div>
+  <div class="col-md-8"><h2 id="name" style="margin-top:4%;font-family:'Arial' !important;" align="center">VISVESVARAYA NATIONAL INSTITUTE OF TECHNOLOGY</h2></div>
   <div class="col-md-2 margin-top"></div>
    </div>
 </div>
-    <p class="container sp" style="font-size: 40px; text-align: center; color: black; background-color: white">Student Portal</p>
+    <p class="container sp" style="font-size: 40px; text-align: center; color: black; background-color: white; width:100%; font-family:'Arial' !important; border-bottom:5px solid #dad3d36e;">Student Portal</p>
 <!--
  <section class="cover-image js-menu-shift"><div class="layer"><h1 class="h1">VNIT Student Portal</h1></div></section>
    -->      
@@ -284,7 +286,8 @@ experience_saved="{{experience_saved}}"
          {% endif %}   
 
 {% if page_name == "homepage" %} <!-- Display top only for mainpage -->
-<hr style="height: 10px;border: 0;	box-shadow: 0 10px 10px -10px grey inset;">
+{#<hr style="height: 10px;border: 0;	box-shadow: 0 10px 10px -10px grey inset;">#}
+<br>
 {% endif %}
 <!-- End of HEader section -->
 
@@ -294,7 +297,7 @@ experience_saved="{{experience_saved}}"
         $(document).ready(function() {
         $( '.dropdown' ).hover(
             function(){
-                $(this).children('.dropdown-menu').slideDown(200);
+                $(this).children('.dropdown-menu').slideDown(500);
             },
             function(){
                 $(this).children('.dropdown-menu').slideUp(200);
@@ -306,7 +309,7 @@ experience_saved="{{experience_saved}}"
     }
     else {
         $(document).ready(function () {
-            $('.dropdown').live("click",
+            $('.dropdown').on("click",
                     function () {
                         $(this).children('.dropdown-menu').slideDown(200);
                     },

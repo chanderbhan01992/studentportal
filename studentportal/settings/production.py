@@ -1,7 +1,7 @@
 from base import *
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ''' Work with this db while working on server'''
 DATABASES = {
@@ -17,6 +17,7 @@ DATABASES = {
 
 PROJECT_APPS=[
     'portalapp',
+    'clubsapp',
 ]
 
 INSTALLED_APPS = PREREQUISITE_APPS + PROJECT_APPS

@@ -16,9 +16,9 @@ class Club ( models.Model ):
     shortName = models.TextField ( max_length=45 , null=True )
     longName = models.TextField ( max_length=45 , null=True )
     displayName = models.TextField ( max_length=45 , null=True )
-    aboutUs = models.TextField ( max_length=2000 , null=True )
-    yearOfStart = models.TextField( max_length=6,null=True )
-    president = models.ForeignKey ( Personinformation , related_name="president" )
+    aboutUs = models.TextField ( max_length=2500 , null=True)
+    yearOfStart = models.TextField( max_length=4, null=True )
+    clubHead = models.TextField ()
     clubType = models.TextField ( max_length=45 , null=True )
     facultyInCharge1 = models.TextField ( max_length=50 )
     facultyInCharge2 = models.TextField ( max_length=50 , null=True )  #some clubs have two f.i
@@ -26,6 +26,11 @@ class Club ( models.Model ):
 
     def __unicode__ ( self ):
         return self.longName
+
+class Faculty (models.Model):
+    id = models.AutoField (primary_key = True, null=False)
+    name = models.TextField (max_length=50, null=True)
+    link = models.TextField(max_length=1500, null=True)
 
 
 class ClubMember ( models.Model ):
@@ -84,4 +89,5 @@ class ActivityPhotoRelationship ( models.Model ):
     id = models.AutoField ( primary_key=True , null=False )
     activity = models.ForeignKey ( Activity , null=False )
     photo = models.ForeignKey ( Photos , null=False )
+
 

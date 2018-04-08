@@ -48,22 +48,26 @@
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                 <li data-target="#myCarousel" data-slide-to="1"></li>
                 <li data-target="#myCarousel" data-slide-to="2"></li>
+		<li data-target="#myCarousel" data-slide-to="4"></li>
               </ol>-->
 
               <!-- Wrapper for slides -->
               <div class="carousel-inner">
 
-                <div class="item">
-                  <img src="https://scontent-bom1-1.xx.fbcdn.net/v/t1.0-9/14079992_1199589560063514_5129600759812714956_n.jpg?oh=04a1394f2c5c7e6b6a0cd462fe02f25c&oe=5A4A557C" alt="New York">
-                </div>
-
-                <div class="item">
-                  <img src="https://scontent-bom1-1.xx.fbcdn.net/v/t1.0-9/21032448_1576844722337994_3081322064681161298_n.jpg?oh=7d91582a151723fcb1a4a0b975694425&oe=5A53106E" alt="Chicago">
-                </div>
-
                 <div class="item active">
-                  <img src="https://scontent-bom1-1.xx.fbcdn.net/v/t1.0-9/21767957_1609033589119107_7666551367602122504_n.jpg?oh=d95e0b8857628873107220e7eac8c177&oe=5A4992D8" alt="Los Angeles">
+                  <img src="{% static 'IMG/car0.jpg'  %}" alt="0">
                 </div>
+
+                <div class="item">
+                  <img src="{% static 'IMG/car1.jpg' %}" alt="1">
+                </div>
+
+                <div class="item">
+                  <img src="{% static 'IMG/car2.jpg' %}" alt="3">
+                </div>
+		<div class="item">
+		<img src="{% static 'IMG/car3.jpg' %}" alt="4">
+		</div>
 
               </div>
               <div class="h-content" id="head">
@@ -105,9 +109,8 @@
           </div>
 
           <div class="pricing">
-            <p>Stay tuned for more updates</p>
+            <p>Stay tuned for more updates..</p>
           </div>
-
         </div>
         </div>
       </section>

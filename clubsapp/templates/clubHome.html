@@ -31,7 +31,6 @@
       <link href="{% static 'CSS/posts.css' %}" rel="stylesheet" type="text/css">
       <link href="{% static 'CSS/work.css' %}" rel="stylesheet" type="text/css">
       <link href="{% static 'CSS/event.css' %}" rel="stylesheet" type="text/css">
-
       <!--The following script tag downloads a font from the Adobe Edge Web Fonts server for use within the web page. We recommend that you do not modify it.-->
       <script>var __adobewebfontsappname__="dreamweaver"</script>
       <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
@@ -66,13 +65,13 @@
                   <section class="mentors">
                     <div class="mentors_column" id="mentors_column">
                       <h3><b>Faculty Coordinator</b></h3>
-                      <img src="https://www.w3schools.com/css/img_avatar.png" alt="" class="cards" id="mempic"/>
+                      <img src="" alt="" class="cards" id="mempic" onerror="this.style.display='none'"/>
                       <p>{{club_data.facultyInCharge1}}</p>
                     </div>
                     <div class="mentors_column">
                       <h3><b>Club President</b></h3>
-                      <img src="https://www.w3schools.com/css/img_avatar.png" alt="" class="cards"  id="mempic"/>
-                      <p>ABC EFGH</p>
+                      <img src="" alt="" class="cards"  id="mempic" onerror="this.style.display='none'"/>
+                      <p>{{club_data.clubHead}}</p>
                     </div>
                   </section>
 
@@ -122,7 +121,7 @@
                               </div>
                               <div class="event-right">
                                 <div class="event-heading">
-                                  <h3 class ="event-hcontent">{{data.event.name}}</h3>
+                                  <h3 class ="event-hcontent">{{data.event.heading}}</h3>
                                 </div>
                                 <div class="event-details">
                                   <div class="event-details-time">{{data.event.time|to_time}}</div>

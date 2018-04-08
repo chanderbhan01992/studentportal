@@ -54,5 +54,5 @@ def clubHome(request,clubName):
     club_gall = ClubPhotoRelationship.objects.filter(club = club_data)[:8]
     args.update({'gall_data': club_gall})
 
-    return render_to_response ( 'ClubHome.html', args )
+    return render_to_response ( 'clubHome.html', args )
 

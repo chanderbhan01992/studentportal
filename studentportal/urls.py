@@ -1,4 +1,4 @@
-﻿"""StudentPortal URL Configuration
+"""StudentPortal URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.8/topics/http/urls/
@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include , url , static
-#from django.conf.urls.static import static
+from django.conf.urls.static import static
 from django.contrib import admin
 import settings.base
 from django.conf.urls import (handler404 , handler500)
@@ -53,12 +53,12 @@ urlpatterns = [
     url ( r'^forgotpass/(?P<comp_id>[0-9]+)/intern/$' , 'portalapp.views.forgotpass' ) ,
 
     url ( r'^home/aboutus/$' , 'portalapp.views.aboutus' ) ,
-    url ( r'^clubs/$' , include ( 'clubsapp.urls' ) ) ,
+    url ( r'^clubs/' , include ( 'clubsapp.urls' ) ) ,
+
 ]
 
-# give url to media directory
 if settings.base.DEBUG:
-    urlpatterns += static.static(settings.base.MEDIA_URL, document_root=settings.base.MEDIA_ROOT)
+    urlpatterns+=static(settings.base.MEDIA_URL, document_root=settings.base.MEDIA_ROOT)
 
 '''  
 
