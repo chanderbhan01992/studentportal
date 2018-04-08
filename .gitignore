@@ -1,7 +1,9 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### Actionscript template
-# Build and Release Folders
 
++# Build and Release Folders
++portalenv/
++resources/build/
 
 # Other files and folders
 .idea/
