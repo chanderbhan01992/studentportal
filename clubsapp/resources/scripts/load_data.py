@@ -277,4 +277,5 @@ def downloadFacebookPost():
 
 if __name__ == '__main__':
     #Run whichever method you want to run
-    loadGallery ()
+    #loadGallery ()
+    print "YTEST"
