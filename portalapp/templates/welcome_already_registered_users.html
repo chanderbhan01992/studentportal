@@ -387,17 +387,16 @@
     }
     </style>
   </head>
-  <body>
+  <body style="background:#F2F4F6; color:#233233;font-family: sans-serif ,'Helvetica Neue'; line-height: 1.4;margin: 0;width: 100% !important;height: 100%;">
     <span class="preheader">Thanks for trying out Student Portal. We’ve pulled together some information and resources to help you get started.</span>	
+    <img src="https://i.imgur.com/yMzlqA3.png" alt ="VNIT" title="Vnit" style="display:block;margin-left: auto;margin-right:auto" width="600" height="220">
     <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0">
       <tr>
         <td align="center">
           <table class="email-content" width="100%" cellpadding="0" cellspacing="0">
             <tr>
               <td class="email-masthead">
-                <a href="{{ link }}" class="email-masthead_name">
-       VNIT Student Portal
-      </a>
+                <a href="{{ link }}" style="text-align: center;color:#233;font-size: 16px;text-decoration: none;" class="email-masthead_name">VNIT Student Portal</a>
               </td>
             </tr>
             <!-- Email Body -->
@@ -407,59 +406,41 @@
                   <!-- Body content -->
                   <tr>
                     <td class="content-cell">
-                      <h1>Hello, {{name}}!</h1>
-                      <p>VNIT Student Portal is now global. Contribute (if you have not already) your precious experience of any interviews selected/rejected that you might have given for your job/internships on/off campus.</p>
+                      <h1>Hello {{name}}!</h1>
+                      <p style="color:#233;font-size: 12px;text-align: left" >VNIT Student Portal is now global. Contribute (if you have not already) your precious experience of any interviews selected/rejected that you might have given for your job/internships on/off campus.</p>
 
-                      <p>We had registered you earlier.So, kindly contribute your experience by logging in  to the website.</p>
+                      <p style="color:#233;font-size: 12px;text-align: left" >We had registered you earlier. So, kindly contribute your experience by logging to <a href="{{ link }}" style="color: #233233;text-decoration: underline;">Student Portal</a> website.</p>
 
                       <!-- Action -->
                       <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0">
                         <tr>
                           <td align="center">
-                            <!-- Border based button
-                       https://litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design 
-                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                              <tr>
-                                <td align="center">
-                                  <table border="0" cellspacing="0" cellpadding="0">
-                                    <tr>
-                                      <td>
-                                        <a href="{{action_url}}" class="button button--" target="_blank">Do this Next</a>
-                                      </td>
-                                    </tr>
-                                  </table>
-                                </td>
-                              </tr>
-                            </table>
-                          </td>
-                        </tr>
-                      </table>-->
 <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0">
                         <tr>
                           <td align="center">
                             
-                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                              <tr>
-                                <td align="center">
-                                  <table border="0" cellspacing="0" cellpadding="0">
-                                    <tr>
-                                      <td>
-
-                                        <a href="{{ link }}" class="button button--green" >Visit Student Portal</a>
-                                      </td>
-                                    </tr>
-                                  </table>
-                                </td>
-                              </tr>
-                            </table>
+{#                            <table width="100%" border="0" cellspacing="0" cellpadding="0">#}
+{#                              <tr>#}
+{#                                <td align="center">#}
+{#                                  <table border="0" cellspacing="0" cellpadding="0">#}
+{#                                    <tr>#}
+{#                                      <td>#}
+{##}
+{#                                        <a href="{{ link }}" class="button button--green" >Visit Student Portal</a>#}
+{#                                      </td>#}
+{#                                    </tr>#}
+{#                                  </table>#}
+{#                                </td>#}
+{#                              </tr>#}
+{#                            </table>#}
                           </td>
                         </tr>
                       </table>
 
-			<p>P.S. If you don't remember your password, forgot password will help :p</p>
+			<p style="color:#233;font-size: 12px;text-align: left" >P.S. If you don't remember your password, forgot password will help :p
 			
                       
-                      <p>Thanks,
+                      <br>Thanks,
                         <br>VNIT Student Portal Team</p>
                      
                   

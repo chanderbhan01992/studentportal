@@ -1559,3 +1559,7 @@ def tnp_head_admin_details(request, user_id):
 
 def redirect_home(request):
 	return HttpResponseRedirect('/home/')
+
+
+def testemail(request):
+    return render(request,'welcome_already_registered_users.html',{})

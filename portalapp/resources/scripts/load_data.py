@@ -8,10 +8,9 @@ import urllib2
 import json
 import datetime
 import random, string
-from django.template import loader # Sending html page as email
-import dateutil.parser
-from django.core.files import File
-from django.core.files.temp import NamedTemporaryFile
+
+
+
 
 
 ''' SETUP DJANGO ENVIRONMENT '''
@@ -34,19 +33,23 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'studentportal.settings.development'
 print "Importing models ..."
 from portalapp.models import *
 from django.contrib.auth.models import *
+from django.contrib.auth.hashers import *
+from django.template.loader import render_to_string, get_template #Sending html page as email
 print "Importing Done"
 
 
 ''' FILES AND DIRECTORIES '''
 DIRECTORY_CSVFILES = "/CSVFiles"
 FILE_CSV_COMPANY = BASE_DIR + DIRECTORY_CSVFILES + "/Club.csv"
-FILE_CSV_PERSONALINFORMATION = BASE_DIR + DIRECTORY_CSVFILES + "/ContactDetails.csv"
+FILE_CSV_PERSONALINFORMATION19 = BASE_DIR + DIRECTORY_CSVFILES + "/StudentBatch2019.csv"
+FILE_CSV_PERSONALINFORMATION20 = BASE_DIR + DIRECTORY_CSVFILES + "/StudentBatch2020.csv"
+FILE_CSV_TEST = BASE_DIR + DIRECTORY_CSVFILES + "/test.csv"
 
 
 '''  ----------- '''
 FROM_EMAIL = 'studentportal@students.vnit.ac.in'
 LINK = "studentportal.vnit.ac.in"
-WELCOME_TEXT = "'Hello and Welcome to Student Portal '"
+WELCOME_TEXT = "'Hola! Welcome to Student Portal '"
 
 
 ''' generate random string'''
@@ -56,61 +59,68 @@ def randomword(length):
 
 '''Load Data Into PersonalInformation'''
 def loadPersonalInformation():
-    dataReader = csv.reader(open(FILE_CSV_PERSONALINFORMATION), delimiter=',', quotechar='"')
+    dataReader = csv.reader(open(FILE_CSV_TEST), delimiter=',', quotechar='"')
     r = Roles.objects.filter(short_name="Student").first()
     for row in dataReader:
-        if row[0] == 'Timestamp':  # Ignore the header row, import everything
+        if row[0] == 'E-Mail':  # Ignore the header row, import everything
             print 'Ignored the header'
         else:
             try:
-                p = Personinformation.objects.get(clg_id=int(row[3]))
+                p = Personinformation.objects.get(clg_id=row[5])
                 email = p.email
-                html_msg = loader.render_to_string('welcome_already_registered_users.html',
+                html_msg = render_to_string('welcome_already_registered_users.html',
                                                    {'name': p.firstname, 'link': LINK})  # password_reset_email.html
                 send_mail(WELCOME_TEXT, "Welcome", FROM_EMAIL, [email], html_message=html_msg)
                 print "Already Registered"
                 print "Email: " + p.email
-                print "Name: " + p.firstname + ' ' +p .lastname
+                print "Name: " + p.firstname + ' ' +p.lastname
 
             except Personinformation.DoesNotExist:
                 p = Personinformation()
                 p.roleid = r
                 # p.deptid=2 #ECE
 
-                p.email = row[1]
-                p.firstname = (row[2].split())[0]
-                p.lastname = (row[2].split())[-1]
-                p.clg_id = row[3]
-                p.roll_no = row[4]
-                p.telephone1 = row[5]
+                p.email = row[0]
+                p.firstname = (row[1].split())[0]
+                p.lastname = (row[1].split())[-1] #For batch 2019
+                '''p.lastname = row[2]''' #For batch 2020
+                p.telephone1 = row[3]
+                p.telephone2 = row[4]
+                p.clg_id = row[5]
+                dept_name = row[6]
+                p.roll_no = row[7]
                 p.roll_no = p.roll_no.strip()
-                dept_name = str(p.roll_no[4:7])
                 print p.email, p.firstname, p.lastname, dept_name
                 dept = Department.objects.get(short_name=dept_name)
                 p.deptid = int(dept.pk)
 
-                password = "SP_" + randomword(6) + "_2018"
+                password = "ST18"+randomword(6)
 
                 # send email
+                if p.email is not None:
+                    email = p.email
 
-                email = p.email
-                html_msg = loader.render_to_string('welcome_email.html',
-                                                   {'name': p.firstname, 'link': LINK, 'username': p.clg_id,
-                                                    'password': password})  # password_reset_email.html
-                # 'welcome_email.html'
-                # 'contribute_success_email.html'
-                send_mail(WELCOME_TEXT, "Welcome", FROM_EMAIL, [email], html_message=html_msg)
+                    context = {
+                        'name': p.firstname,
+                        'link': LINK,
+                        'username': p.clg_id,
+                        'password': password
+                    }
+                    html_msg = render_to_string('welcome_email.html',context)  # password_reset_email.html
+                    # 'welcome_email.html'
+                    # 'contribute_success_email.html'
+                    send_mail(WELCOME_TEXT, "Welcome", FROM_EMAIL, [email], html_message=html_msg)
 
                 p.save()
 
                 l = ForLogin()
                 l.clg_id = p
                 # Currently storing password with encryption :
-                l.password = password
+                l.password = make_password(password)
                 l.save()
                 print "Registered"
-                print "Email: " + row[1]
-                print "Name: " + row[2]
+                print "Email: " + row[0]
+                print "Name: " + row[1]
 
 
 
@@ -138,5 +148,5 @@ def loadCompany():
 
 if __name__ == '__main__':
     #Run whichever method you want to run
-    #loadPersonalInformation ()
+    loadPersonalInformation ()
     print "IT WAS A TEST"
