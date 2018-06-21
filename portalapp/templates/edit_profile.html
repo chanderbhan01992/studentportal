@@ -120,14 +120,14 @@ $('.password_change').css('display','block');
 
 <div class="row">
 		
-        <div class="col-md-6 col-xs-12 col-margin">
+        <div class="col-md-6 col-xs-6 col-margin">
 		<label for="telephone1">Mobile</label>
 		<input type="text" class="form-control" value="{{ person_obj.telephone1 }}" id="telephone1" name="telephone1">
 		<font color='red'> <DIV id="mbr1_ep"> </DIV> </font>
         </div>
 
-        <div class="col-md-6 col-xs-12 col-margin">
-		<label for="telephone2">Mobile/Telephone</label>
+        <div class="col-md-6 col-xs-6 col-margin">
+		<label for="telephone2">Telephone</label>
 		<input type="text" class="form-control" value="{{ person_obj.telephone2 }}" id="telephone2" name="telephone2">
 		<font color='red'> <DIV id="mbr2_ep"> </DIV> </font>
         </div>
@@ -138,12 +138,12 @@ $('.password_change').css('display','block');
 
 <div class="row">
     
-		 <div class="col-md-6 col-xs-12 col-margin">
+		 <div class="col-md-6 col-xs-6 col-margin">
          <label for="dept">Department</label>
 		<input type="text" class="form-control" style="color:grey;" readonly value="{{ deptname }}" id="dept" name="dept">
         </div>
 
-    <div class="col-md-6 col-xs-12 col-margin">
+    <div class="col-md-6 col-xs-6 col-margin">
 		<label for="roll_no">Roll Number</label>
 		<input type="text" class="form-control" id="roll_no" style="color:grey" readonly value="{{ person_obj.roll_no }}" name="roll_no"> 
     </div>
@@ -153,7 +153,7 @@ $('.password_change').css('display','block');
 
 <div class="row editprofile_button_div">
 
-<input type="button" onclick="display_password_change()" class=" editprofile_button btn" value="Change your password "> </input>
+<input type="button" onclick="display_password_change()" class=" editpass_button btn" value="Change Password "> </input>
 
 <div class="password_change" style="display:none;margin-top:10px;">
  <div class="col-md-4">
@@ -161,13 +161,13 @@ $('.password_change').css('display','block');
 		<input type="password" class="form-control" value="" id="oldpasssword" name="oldpassword">
     	</div>
 
-    <div class="col-md-4">
+    <div class="col-md-4 col-sm-6 col-xs-6">
         <label for="password1">New Passsword</label>
 		<input type="password" class="form-control" value="" id="passsword1" name="password1">
 		<font color='red'> <DIV id="passr1_ep"> </DIV> </font>
     	</div>
 
-    <div class="col-md-4">
+    <div class="col-md-4 col-sm-6 col-xs-6">
         <label for="password2">New Passsword again</label>
 		<input type="password" class="form-control" value="" id="passsword2" name="password2">
 		<font color='red'> <DIV id="passr2_ep"> </DIV> </font>
