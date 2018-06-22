@@ -1562,4 +1562,4 @@ def redirect_home(request):
 
 
 def testemail(request):
-    return render(request,'password_reset_email.html',{})
+    return render(request,'welcome_email.html',{})
