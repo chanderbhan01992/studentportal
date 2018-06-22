@@ -32,32 +32,25 @@ $('.password_change').css('display','block');
 
 
 
-<div class = "container">
-<div class=" row">
+<div class = "container editprofile">
+<div class=" row" style="margin: 0px;">
 
-<div class="col-md-3 edit_options">
-    <div class="row">
+<div class="col-md-3 col-sm-3 col-xs-12">
         <div class="editprofile_user">
+        <span><i class="fa fa-user"></i></span>
+            <b>{{ fname }}&nbsp;{{ person_obj.lastname }}</b><br><br>
+            {% if person_obj.roleid.display_name == "Admin" %}
+            <span class="fa fa-graduation-cap"></span>
+            {% else %}
+            <span class="fa fa-lock"></span>
+            {% endif %}
 
-            <div class="col-xs-4"><span><i class="fa fa-user"></i></span></div>
-            <div class="col-xs-8" style="min-height:100px;vertical-align: middle;margin-top: 10%;text-align: -webkit-auto;">
-                <b>{{ fname }}&nbsp;{{ person_obj.lastname }}</b>
-                <br/>
-                <div>
-                    {% if person_obj.roleid.display_name == "Admin" %}
-                    <span class="fa fa-graduation-cap"></span>
-                    {% else %}
-                    <span class="fa fa-lock"></span>
-                    {% endif %}
+            <b>{{ person_obj.roleid.display_name }}</b>
 
-                    <b>{{ person_obj.roleid.display_name }}</b>
-                </div>
-            </div>
         </div>
-    </div>
 
 
-    <div class="row">
+    <div class="row" >
         <ul >
             {% if loginas == "Admin" %}
 
@@ -81,7 +74,7 @@ $('.password_change').css('display','block');
     </div>
 
 </div>
-<div class="col-md-7" style="background-color:white;padding: 2%;margin: 4%;margin-left:25px 	;margin-right:20px;margin-top: 3%;height: auto;box-shadow: 0 3px 5px rgba(0,0,0,0.16),0 3px 5px rgba(0,0,0,0.23);">
+<div class="col-md-9 col-sm-9 col-xs-12 editprofile_form" style="background-color:white;height: auto;">
     <div class="row">
         <ul>
         {% for i in err_msg %}
@@ -92,13 +85,13 @@ $('.password_change').css('display','block');
 
 <!-- Names -->
 <div class="row">
-    <div class="col-md-6 col-xs-6">
+    <div class="col-md-6 col-xs-12 col-margin">
       		<label for="fname" class="control-label" >First Name</label> <br>
       		<input type="text" id="fname" class="form-control"   value="{{ person_obj.firstname }}" name="fname">
 		<font color='red'> <DIV id="fnr_ep"> </DIV> </font>
     </div>
     
-    <div class="col-md-6 col-xs-6">
+    <div class="col-md-6 col-xs-12 col-margin">
       		<label for="lname" >Last Name</label> <br>
       		<input type="text" id="lname" class="form-control" value="{{ person_obj.lastname }}" name="lname">
 		<font color='red'> <DIV id="lnr_ep"> </DIV> </font>
@@ -108,13 +101,13 @@ $('.password_change').css('display','block');
 <br/>
 <div class="row">
 
-  <div class="col-md-6 col-xs-4">
+  <div class="col-md-6 col-xs-4 col-margin">
          <label for="clg_id">College id</label>
 		<input type="text" class="form-control" style="color:grey" readonly value="{{ person_obj.clg_id }}" id="clg_id" name="clg_id">
         </div>
         
         
-        <div class="col-md-6 col-xs-8">
+        <div class="col-md-6 col-xs-8 col-margin">
 		<label for="email">Email</label>
 		<input type="text" id="email" class="form-control" readonly value="{{ person_obj.email }}" name="email">
         </div>
@@ -127,14 +120,14 @@ $('.password_change').css('display','block');
 
 <div class="row">
 		
-        <div class="col-md-6 col-xs-6">  
+        <div class="col-md-6 col-xs-6 col-margin">
 		<label for="telephone1">Mobile</label>
 		<input type="text" class="form-control" value="{{ person_obj.telephone1 }}" id="telephone1" name="telephone1">
 		<font color='red'> <DIV id="mbr1_ep"> </DIV> </font>
         </div>
 
-        <div class="col-md-6 col-xs-6"> 
-		<label for="telephone2">Mobile/Telephone</label>
+        <div class="col-md-6 col-xs-6 col-margin">
+		<label for="telephone2">Telephone</label>
 		<input type="text" class="form-control" value="{{ person_obj.telephone2 }}" id="telephone2" name="telephone2">
 		<font color='red'> <DIV id="mbr2_ep"> </DIV> </font>
         </div>
@@ -145,12 +138,12 @@ $('.password_change').css('display','block');
 
 <div class="row">
     
-		 <div class="col-md-6 col-xs-6">
+		 <div class="col-md-6 col-xs-6 col-margin">
          <label for="dept">Department</label>
 		<input type="text" class="form-control" style="color:grey;" readonly value="{{ deptname }}" id="dept" name="dept">
         </div>
 
-    <div class="col-md-6 col-xs-6">
+    <div class="col-md-6 col-xs-6 col-margin">
 		<label for="roll_no">Roll Number</label>
 		<input type="text" class="form-control" id="roll_no" style="color:grey" readonly value="{{ person_obj.roll_no }}" name="roll_no"> 
     </div>
@@ -158,9 +151,9 @@ $('.password_change').css('display','block');
 
 <!-- PAssword -->
 
-<div class="row">
+<div class="row editprofile_button_div">
 
-<input type="button" onclick="display_password_change()" class=" editprofile_button btn" value="Change your password "> </input>
+<input type="button" onclick="display_password_change()" class=" editpass_button btn" value="Change Password "> </input>
 
 <div class="password_change" style="display:none;margin-top:10px;">
  <div class="col-md-4">
@@ -168,13 +161,13 @@ $('.password_change').css('display','block');
 		<input type="password" class="form-control" value="" id="oldpasssword" name="oldpassword">
     	</div>
 
-    <div class="col-md-4">
+    <div class="col-md-4 col-sm-6 col-xs-6">
         <label for="password1">New Passsword</label>
 		<input type="password" class="form-control" value="" id="passsword1" name="password1">
 		<font color='red'> <DIV id="passr1_ep"> </DIV> </font>
     	</div>
 
-    <div class="col-md-4">
+    <div class="col-md-4 col-sm-6 col-xs-6">
         <label for="password2">New Passsword again</label>
 		<input type="password" class="form-control" value="" id="passsword2" name="password2">
 		<font color='red'> <DIV id="passr2_ep"> </DIV> </font>

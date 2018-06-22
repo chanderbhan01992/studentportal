@@ -6,7 +6,7 @@ portalenv/
 resources/build/
 
 # Other files and folders
-.idea/
+.idea
 clubsapp/migrations/
 portalapp/migrations/
 *.xml

@@ -1,5 +1,5 @@
 
-csv_filepathname="/home/studentportal/studentportal/testing.csv"
+csv_filepathname="/home/studentportal/studentportal/guptagautam.csv"
 django_project_home = "/home/studentportal/studentportal/"
 
 import sys,os
@@ -38,7 +38,7 @@ for row in dataReader:
 		email = p.email
 		#link=request.META['HTTP_HOST']+"/home"
 		link="studentportal.vnit.ac.in"
-		html_msg = loader.render_to_string('welcome_already_registered_users.html',		 {'name':p.firstname,'link':link}) #password_reset_email.html
+		html_msg = loader.render_to_string('welcome_already_registered_users.html', {'name':p.firstname, 'link':link}) #password_reset_email.html
 		#'welcome_email.html'
 		#'contribute_success_email.html'
 		send_mail('Hello and Welcome to Student Portal ',"Welcome", FROM_EMAIL, [email],html_message=html_msg)
@@ -61,25 +61,29 @@ for row in dataReader:
 		print p.email,p.firstname,p.lastname,dept_name
 		dept = Department.objects.get(short_name=dept_name)
 		p.deptid = int(dept.pk)
+
+		password = id_generator() 
 	
 		# print p.email,p.firstname,p.lastname
 		#p.createdondate=
-		p.save()
-
-		l=ForLogin()
-		l.clg_id=p
-		#Currently storing password with encryption : 
-		password = id_generator() 
-		l.password=make_password(password )
-		l.save()
+		
 #send email 
 	
 		email = p.email
 		#link=request.META['HTTP_HOST']+"/home"
 		link="studentportal.vnit.ac.in"
-		html_msg = loader.render_to_string('welcome_email.html',{'name':p.firstname,'link':link,'username':p.clg_id,'password':password }) #password_reset_email.html
+		html_msg = loader.render_to_string('welcome_email.html', {'name':p.firstname, 'link':link, 'username':p.clg_id, 'password':password}) #password_reset_email.html
 		#'welcome_email.html'
 		#'contribute_success_email.html'
 		send_mail('Hello and Welcome to Student Portal ',"Welcome", FROM_EMAIL, [email],html_message=html_msg)
+
+		p.save()
+
+		l=ForLogin()
+		l.clg_id=p
+		#Currently storing password with encryption : 
+
+		l.password=make_password(password )
+		l.save()
         
 
