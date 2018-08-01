@@ -59,7 +59,7 @@ def randomword(length):
 
 '''Load Data Into PersonalInformation'''
 def loadPersonalInformation():
-    dataReader = csv.reader(open(FILE_CSV_TEST), delimiter=',', quotechar='"')
+    dataReader = csv.reader(open(FILE_CSV_PERSONALINFORMATION19 ), delimiter=',', quotechar='"')
     r = Roles.objects.filter(short_name="Student").first()
     for row in dataReader:
         if row[0] == 'E-Mail':  # Ignore the header row, import everything
@@ -70,7 +70,12 @@ def loadPersonalInformation():
                 email = p.email
                 html_msg = render_to_string('welcome_already_registered_users.html',
                                                    {'name': p.firstname, 'link': LINK})  # password_reset_email.html
-                send_mail(WELCOME_TEXT, "Welcome", FROM_EMAIL, [email], html_message=html_msg)
+                try:
+                    send_mail(WELCOME_TEXT, "Welcome", FROM_EMAIL, [email], html_message=html_msg)
+                    print "Mail sent"
+                except:
+                    print" Mail was not sent"
+                #send_mail(WELCOME_TEXT, "Welcome", FROM_EMAIL, [email], html_message=html_msg)
                 print "Already Registered"
                 print "Email: " + p.email
                 print "Name: " + p.firstname + ' ' +p.lastname
@@ -109,7 +114,10 @@ def loadPersonalInformation():
                     html_msg = render_to_string('welcome_email.html',context)  # password_reset_email.html
                     # 'welcome_email.html'
                     # 'contribute_success_email.html'
-                    send_mail(WELCOME_TEXT, "Welcome", FROM_EMAIL, [email], html_message=html_msg)
+                    try:
+                        send_mail(WELCOME_TEXT, "Welcome", FROM_EMAIL, [email], html_message=html_msg)
+                    except:
+                        print"Mail was not sent"
 
                 p.save()
 
