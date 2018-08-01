@@ -1,5 +1,8 @@
+*{
+  font-family: 'Source Sans Pro', sans-serif !important;
+}
 body {
-  font-family: 'Helvetica', 'Arial', san-serif;
+  font-family: 'Source Sans Pro', sans-serif !important;
   font-size: 13px;
   padding: 25px;
 }
