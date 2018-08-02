@@ -59,10 +59,10 @@ def randomword(length):
 
 '''Load Data Into PersonalInformation'''
 def loadPersonalInformation():
-    dataReader = csv.reader(open(FILE_CSV_PERSONALINFORMATION19 ), delimiter=',', quotechar='"')
+    dataReader = csv.reader(open(FILE_CSV_PERSONALINFORMATION20), delimiter=',', quotechar='"')
     r = Roles.objects.filter(short_name="Student").first()
     for row in dataReader:
-        if row[0] == 'E-Mail':  # Ignore the header row, import everything
+        if row[0] == "Email":  # Ignore the header row, import everything
             print 'Ignored the header'
         else:
             try:
@@ -70,11 +70,11 @@ def loadPersonalInformation():
                 email = p.email
                 html_msg = render_to_string('welcome_already_registered_users.html',
                                                    {'name': p.firstname, 'link': LINK})  # password_reset_email.html
-                try:
+                '''try:
                     send_mail(WELCOME_TEXT, "Welcome", FROM_EMAIL, [email], html_message=html_msg)
                     print "Mail sent"
                 except:
-                    print" Mail was not sent"
+                    print" Mail was not sent"'''
                 #send_mail(WELCOME_TEXT, "Welcome", FROM_EMAIL, [email], html_message=html_msg)
                 print "Already Registered"
                 print "Email: " + p.email
@@ -87,8 +87,8 @@ def loadPersonalInformation():
 
                 p.email = row[0]
                 p.firstname = (row[1].split())[0]
-                p.lastname = (row[1].split())[-1] #For batch 2019
-                '''p.lastname = row[2]''' #For batch 2020
+                #p.lastname = (row[1].split())[-1] #For batch 2019
+                p.lastname = row[2] #For batch 2020
                 p.telephone1 = row[3]
                 p.telephone2 = row[4]
                 p.clg_id = row[5]
@@ -114,10 +114,11 @@ def loadPersonalInformation():
                     html_msg = render_to_string('welcome_email.html',context)  # password_reset_email.html
                     # 'welcome_email.html'
                     # 'contribute_success_email.html'
-                    try:
-                        send_mail(WELCOME_TEXT, "Welcome", FROM_EMAIL, [email], html_message=html_msg)
+                    '''try:
+                        #send_mail(WELCOME_TEXT, "Welcome", FROM_EMAIL, [email], html_message=html_msg)
                     except:
-                        print"Mail was not sent"
+                        print"Mail was not sent"'''
+                    #send_mail(WELCOME_TEXT, "Welcome", FROM_EMAIL, [email], html_message=html_msg)
 
                 p.save()
 

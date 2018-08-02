@@ -453,6 +453,7 @@ input.search-company::-webkit-input-placeholder {
     margin-left:2%;
     margin-right:auto;
     border-radius:4px;
+    margin-bottom: 20px;
     padding: 0;
     display: table;
     position: relative;

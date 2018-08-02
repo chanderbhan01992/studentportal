@@ -465,7 +465,7 @@ def headerdb(request):
 	experience_saved=0
         contribute_success = 0
     #Getting the top 8 departmetn objects only as they are the distinct department
-    dept_list=Department.objects.all().order_by('id')[:8]
+    dept_list=Department.objects.all().order_by('id')[:9]
 
     intern_company_list=company_table.objects.filter(company_intern_valid=1,valid=1)
     job_company_list=company_table.objects.filter(company_job_valid=1,valid=1)
