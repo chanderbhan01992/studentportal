@@ -70,11 +70,11 @@ def loadPersonalInformation():
                 email = p.email
                 html_msg = render_to_string('welcome_already_registered_users.html',
                                                    {'name': p.firstname, 'link': LINK})  # password_reset_email.html
-                '''try:
+                try:
                     send_mail(WELCOME_TEXT, "Welcome", FROM_EMAIL, [email], html_message=html_msg)
                     print "Mail sent"
                 except:
-                    print" Mail was not sent"'''
+                    print" Mail was not sent"
                 #send_mail(WELCOME_TEXT, "Welcome", FROM_EMAIL, [email], html_message=html_msg)
                 print "Already Registered"
                 print "Email: " + p.email

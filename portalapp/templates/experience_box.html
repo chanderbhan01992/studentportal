@@ -7,23 +7,24 @@
 				<header class="entry-header">
 						<h2 class="entry-title">
 {% if i.valid != 3 %}
-                				<a href="/exp_{% if type == 'job' %}placed{% else %}{{ type }}{% endif %}/{{ i.id }}/" rel="bookmark">{{ i.cdr_id.company_id.display_name }} {{ type }} interview experience </a>
-                			&nbsp
+                				<a href="/exp_{% if type == 'job' %}placed{% else %}{{ type }}{% endif %}/{{ i.id }}/" rel="bookmark">{{ i.cdr_id.company_id.display_name }}</a>
+                			
 {% else %}
 
-<span style="color:#0f8383;">{{ i.cdr_id.company_id.display_name }} {{ type }} interview experience </span>
-                			&nbsp
+<span style="color:#0f8383;">{{ i.cdr_id.company_id.display_name }}</span>
+                			
 {% endif %}
 
-            <span style="font-size:80%;color:#0f8383;" class="entry-title" >
+            <span style="font-size:60%;color:#0f8383;" class="entry-title" >
                     {% if i.onoffcampus == 1 %}
-                            ( On Campus )
+                            <br/>[OnCampus]&nbsp;<span style="color:#645e5e;font-size:80%">{{ i.timestamp.date }}</span>
                     {% else %}
-                            ( Off Campus )
+                            <br/>[OffCampus]&nbsp;<span style="color:#645e5e;font-size:80%">{{ i.timestamp.date }}</span>
                     {% endif %}
                 </span>
 
-<div class="post-date">{{ i.timestamp.date }}</div>
+<!-- <div class="post-date"></div> -->
+
 
 	</h2>
   </header>

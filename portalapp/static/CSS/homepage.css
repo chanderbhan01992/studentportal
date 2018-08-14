@@ -253,6 +253,10 @@ position:inherit;
 }
 
 @media (min-width: 600px) {
+.post-date
+{
+	font-size: 14px;
+}
     .editprofile{
     width: 80%!important;
 }
@@ -809,14 +813,21 @@ padding-top : 15px;
 }
 
 
-
-
 .post-date
 {
-	color: #aaa;
+	color: #8e8686;
 	font-size: 19px;
 	float:right;
 	margin-right:10px;
+}
+
+
+@media(min-width:800px){
+.post-date
+{
+	color: #8e8686;
+	font-size: 19px;
+}
 }
 
 .entry-summary
@@ -1041,12 +1052,17 @@ color:#213a73;
     font-family: 'Source Sans Pro', sans-serif;
 
 }
-@media screen and (max-width: 732px){
+@media screen and (max-width: 732px)
+{
     #login_content{
         margin-left: 10%;
     }
-#footer_links{
-display: none;}
+	#footer_links{
+	display: none;}
+
+.entry-header .entry-title {
+}
+    font-size: 20px;
 }
 
 
