@@ -1,11 +1,3 @@
 #!/usr/bin/expect -f
-spawn sudo service gunicorn restart
-
-#Expect interacts with git authentication
-#It waits for "ass" text (that matches "Password", "password", "passphrase") and then it sends your password.
-expect "ass"
-send "studentportal123\r"
-interact
-
 spawn sudo service nginx restart
-spawn sudo service mysql restart
+

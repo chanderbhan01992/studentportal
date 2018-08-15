@@ -1,11 +1,10 @@
 #!/usr/bin/expect -f
-spawn git pull origin master
+spawn sudo service gunicorn restart
+
+set password [lindex $argv 0];
 
 #Expect interacts with git authentication
 #It waits for "ass" text (that matches "Password", "password", "passphrase") and then it sends your password.
-expect "Username"
-send "sagban_\r"
-
-expect
-send "IMSAGARb#9975\r"
+expect "ass"
+send "$password\r"
 interact
