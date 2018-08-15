@@ -2,7 +2,12 @@
     <tbody>
     <tr>
 
+    {% if saved == "true" %}
+        <td id="linkdata" onclick="location.href='/home/contribute/?edit_exp={{ i.id }}&type={{ type}}'">
+    {% else %}
         <td id="linkdata" onclick="window.location='/exp_{% if type == 'job' %}placed{% else %}{{ type }}{% endif %}/{{ i.id }}/'">
+    {% endif %}
+
         <article id="" class="post-137294 post type-post status-publish format-standard hentry category-interview-experiences tag-amazon">
 				<header class="entry-header">
 						<h2 class="entry-title">
@@ -52,7 +57,7 @@
            -->
 
 <span style="float:right">
-               <button onclick="location.href='/home/contribute/?edit_exp={{ i.id }}&type={{ type}}'"   class="btn btn-primary btn-sm">Edit experience</button>
+               <button class="btn btn-primary btn-sm">Edit experience</button>
            </span>
 {% endif %}
 
