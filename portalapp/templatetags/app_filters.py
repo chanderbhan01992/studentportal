@@ -58,3 +58,8 @@ def round_details(obj, number):
     # return [{'time':40,'description':60}]
 
 key = register.filter('round_details', round_details)
+
+def dept_count(jobs_exp_dept, i):
+    return jobs_exp_dept[i-1]
+
+key = register.filter('dept_count', dept_count)
