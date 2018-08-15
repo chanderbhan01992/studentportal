@@ -1,0 +1,8 @@
+#!/usr/bin/expect -f
+spawn git pull origin master
+
+#Expect interacts with git authentication
+#It waits for "ass" text (that matches "Password", "password", "passphrase") and then it sends your password.
+expect "ass"
+send "put-server-git-password-here\r"
+interact
