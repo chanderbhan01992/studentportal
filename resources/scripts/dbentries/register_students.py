@@ -60,7 +60,7 @@ for row in dataReader:
 	email = p.email
 	#link=request.META['HTTP_HOST']+"/home"
 	link="10.18.0.8:8000"+"/home"
-	html_msg = loader.render_to_string('welcome_email.html',{'name':p.firstname,'link':link,'username':p.clg_id,'password':password }) #password_reset_email.html
+	html_msg = loader.render_to_string('welcome_email.html', {'name':p.firstname, 'link':link, 'username':p.clg_id, 'password':password}) #password_reset_email.html
 	#'welcome_email.html'
 	#'contribute_success_email.html'
 	send_mail('Hello and Welcome to Student Portal ',"Welcome", FROM_EMAIL, [email],html_message=html_msg)
