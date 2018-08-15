@@ -546,12 +546,14 @@ def company_placements(request,comp_id=0):
 
         jobs_cdr=Company_Department_Relation.objects.filter(company_id=comp_id,job_valid=1)
         jobs_exp=[]
+        jobs_exp_dept = []
         for i in jobs_cdr:
             jobs_exp=jobs_exp+list(experience_placement.objects.filter(cdr_id=i.id,valid=1))
+            jobs_exp_dept += list(experience_placement.objects.filter(cdr_id=i.id,valid=1).count())
         jobs_exp=sorted(jobs_exp, key=lambda x: x.timestamp, reverse=True)
 
         page_name = comp_obj.display_name + " | Placements"
-        args = {'page_name':page_name,'jobs':jobs_exp,'comp_obj':comp_obj}
+        args = {'page_name':page_name,'jobs':jobs_exp,'comp_obj':comp_obj, 'jobs_dept': jobs_exp_dept}
 
         args.update(headerdb(request))
         args.update(csrf(request))

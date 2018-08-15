@@ -10,7 +10,7 @@
 </head>
 
 
-</script>
+{#</script>#}
 
 <body>
 {% load staticfiles %}
@@ -27,7 +27,7 @@
         <div class="col-md-8">
          <ul class="nav nav-tabs">
                  {% for i in dept_list %}
-                        <li ><a data-toggle="tab" href="#{{ i.id }}">{{ i.display_name }}</a></li>
+                        <li ><a data-toggle="tab" href="#{{ i.id }}">{{ i.display_name }}<sup>{{ interns | length }}</sup></a></li>
                 {% endfor %}
           </ul>
 <br>
