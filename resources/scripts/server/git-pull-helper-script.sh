@@ -1,4 +1,9 @@
 expect file-with-commands
 
 # Restart server
-# service nginx reload
+
+expect restart-nginx
+
+# service nginx restart
+# service gunicorn restart
+# service mysql restart

@@ -1,5 +1,5 @@
 #!/usr/bin/expect -f
-spawn git pull origin master
+spawn service nginx restart
 
 #Expect interacts with git authentication
 #It waits for "ass" text (that matches "Password", "password", "passphrase") and then it sends your password.
