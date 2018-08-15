@@ -546,14 +546,25 @@ def company_placements(request,comp_id=0):
 
         jobs_cdr=Company_Department_Relation.objects.filter(company_id=comp_id,job_valid=1)
         jobs_exp=[]
-        jobs_exp_dept = []
+
         for i in jobs_cdr:
             jobs_exp=jobs_exp+list(experience_placement.objects.filter(cdr_id=i.id,valid=1))
-            jobs_exp_dept += list(experience_placement.objects.filter(cdr_id=i.id,valid=1).count())
         jobs_exp=sorted(jobs_exp, key=lambda x: x.timestamp, reverse=True)
 
         page_name = comp_obj.display_name + " | Placements"
-        args = {'page_name':page_name,'jobs':jobs_exp,'comp_obj':comp_obj, 'jobs_dept': jobs_exp_dept}
+
+        num_dept = Department.objects.all()
+        jobs_exp_dept = []
+        for i in range(1,num_dept.count()+1):
+
+            jobs_dept_cdr = Company_Department_Relation.objects.filter(company_id=comp_id,job_valid=1,deptid=i)
+            c = 0
+            for j in jobs_dept_cdr:
+                c += experience_placement.objects.filter(cdr_id=j.id,valid=1).count()
+            jobs_exp_dept = jobs_exp_dept + list(str(c))
+
+
+        args = {'page_name':page_name,'jobs':jobs_exp,'comp_obj':comp_obj, 'jobs_exp_dept':jobs_exp_dept}
 
         args.update(headerdb(request))
         args.update(csrf(request))
@@ -573,7 +584,18 @@ def company_internships(request,comp_id=0):
         interns_exp=sorted(interns_exp, key=lambda x: x.timestamp, reverse=True)
 
         page_name = comp_obj.display_name + " | Internships"
-        args = {'page_name':page_name,'interns':interns_exp,'comp_obj':comp_obj}
+
+        num_dept = Department.objects.all()
+        jobs_exp_dept = []
+        for i in range(1, num_dept.count() + 1):
+
+            jobs_dept_cdr = Company_Department_Relation.objects.filter(company_id=comp_id, intern_valid=1, deptid=i)
+            c = 0
+            for j in jobs_dept_cdr:
+                c += experience_internship.objects.filter(cdr_id=j.id, valid=1).count()
+            jobs_exp_dept = jobs_exp_dept + list(str(c))
+
+        args = {'page_name':page_name,'interns':interns_exp,'comp_obj':comp_obj, 'intern_exp_dept':jobs_exp_dept}
         args.update(headerdb(request))
         args.update(csrf(request))
         return render_to_response(

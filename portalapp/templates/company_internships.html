@@ -14,6 +14,8 @@
 
 <body>
 {% load staticfiles %}
+{% load app_filters %}
+
 
 {% include "headercontent.html" %}  
    
@@ -27,7 +29,7 @@
         <div class="col-md-8">
          <ul class="nav nav-tabs">
                  {% for i in dept_list %}
-                        <li ><a data-toggle="tab" href="#{{ i.id }}">{{ i.display_name }}<sup>{{ interns | length }}</sup></a></li>
+                        <li ><a data-toggle="tab" href="#{{ i.id }}">{{ i.display_name }}<sup>{{ intern_exp_dept| dept_count:i.id}}</sup></a></li>
                 {% endfor %}
           </ul>
 <br>
