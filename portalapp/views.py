@@ -1300,6 +1300,30 @@ def admin_request(request):
 
                 cdrobj.save()
 
+                # Check all outstanding requests. If they satisfy the above approved cdr, them approve the request right away.
+                outstandingRequests = Requests.objects.filter(status=0).exclude(company_id__valid=0) #pending
+
+                for request in outstandingRequests:
+                    if request.job_exp_id is not None:
+                        expobj = request.job_exp_id
+                    elif request.intern_exp_id is not None:
+                        expobj = request.intern_exp_id
+
+                    condition1 = request.company_id.id == cdrobj.company_id.id
+                    condition2 = expobj.userid.deptid == cdrobj.deptid.id
+                    condition3 = request.session == cdrobj.session
+                    condition4 = request.intern_exp_id is not None and cdrobj.intern_valid==1
+                    condition5 = request.job_exp_id is not None and cdrobj.job_valid==1
+                    condition6 = condition4 or condition5
+
+                    if condition1 and condition2 and condition3 and condition6:
+                        # Update request table - request accepted
+                        request.status = 1
+                        request.save()
+                        # Update experience obj with cdr_id
+                        expobj.cdr_id = cdrobj
+                        expobj.valid = 0
+                        expobj.save()
 
             #Update exp table
             if request_obj.job_exp_id is not None :
