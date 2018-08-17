@@ -352,9 +352,12 @@ def forgotpass(request):
                    email_msg = loader.render_to_string('password_reset_email.html',
                                                        {'name': person_obj.firstname, 'link': link})
                    # password_reset_email.html
-                   send_mail('student portal password reset', "This is it", FROM_EMAIL,
-                             [email], html_message=email_msg)
-                   return HttpResponseRedirect('/home/?forgotpass_emailsent='+str(1))
+                   try:
+                       send_mail('student portal password reset', "This is it", FROM_EMAIL,[email], html_message=email_msg)
+                       return HttpResponseRedirect('/home/?forgotpass_emailsent=' + str(1))
+                   except:
+                        print "There is some error semding mail"
+                   return HttpResponseRedirect('/home/?forgotpass_emailsent='+str(2))
                else:
                    fname = ""
                    err_msg = ["Wrong combination of email and clgid"]
@@ -823,7 +826,11 @@ def fill_experience(request):
             email = userobj.email
             link=request.META['HTTP_HOST']+"/home"
             html_msg = loader.render_to_string('contribute_email.html',{'name':userobj.firstname,'link':link })
-            send_mail('Response from Student Portal',"Hello", FROM_EMAIL, [email],html_message=html_msg)
+            #try to send mail apart from any other errors
+            try:
+                send_mail('Response from Student Portal',"Hello", FROM_EMAIL, [email],html_message=html_msg)
+            except:
+                print "Mail not sent"
             ''' Finish Mail to user '''
 
             return HttpResponseRedirect('/home/?contribute_success='+str(1))
