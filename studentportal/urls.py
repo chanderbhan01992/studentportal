@@ -55,21 +55,10 @@ urlpatterns = [
 
     url ( r'^home/aboutus/$' , 'portalapp.views.aboutus' ) ,
     url ( r'^clubs/' , include ( 'clubsapp.urls' ) ) ,
+    url ( r'^bitbucket/webhook/$' , 'studentportal.services.bitbucket_webhooks' )
 
 ]
 
 if settings.base.DEBUG:
     urlpatterns+=static(settings.base.MEDIA_URL, document_root=settings.base.MEDIA_ROOT)
 
-'''  
-
-   
-       url(r'^company/(?P<compid>[0-9]+)/$','portalapp.views.company'),
-
-   
-   
-url(r'^dept/(?P<deptid>[1-9])/$','portalapp.views.dept_selected'),
-  url(r'^company_select/(?P<compid>[0-9]+)/intern/$','portalapp.views.company_internships'),
-    url(r'^company_select/(?P<compid>[0-9]+)/job/$','portalapp.views.company_placements'),
-       
-'''

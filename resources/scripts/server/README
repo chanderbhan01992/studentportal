@@ -1,0 +1,9 @@
+#Run the below command to save your git passwords
+#It will cache it for that many seconds
+git config --global credential.helper 'cache --timeout=100000000'
+
+#After this execute below command once
+git pull origin master
+
+#It will prompt you for password once, and it will cache it for later use.
+#Hurray. No need to enter passwords.
