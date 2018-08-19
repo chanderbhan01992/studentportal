@@ -1,5 +1,6 @@
 import subprocess
 import os
+from django.http import HttpResponseRedirect
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PATH_TO_REFRESH_RESTART_SCRIPT = os.path.join(BASE_DIR,"resources/scripts/server")
@@ -14,3 +15,4 @@ def bitbucket_webhooks(request):
         os.chdir(PATH_TO_REFRESH_RESTART_SCRIPT)
         subprocess.call(REFRESH_RESTART_SCRIPT)
         print "Finished rerunning"
+    return HttpResponseRedirect('/home/') #redirecting it to the home page..
