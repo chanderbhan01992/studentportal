@@ -15,4 +15,4 @@ def bitbucket_webhooks(request):
         os.chdir(PATH_TO_REFRESH_RESTART_SCRIPT)
         subprocess.call(REFRESH_RESTART_SCRIPT)
         print "Finished rerunning"
-    return HttpResponse(status=200) #redirecting it to the home page..
+        return "OK"
