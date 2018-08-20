@@ -4,7 +4,7 @@ from django.http import HttpResponse
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PATH_TO_REFRESH_RESTART_SCRIPT = os.path.join(BASE_DIR,"resources/scripts/server")
-REFRESH_RESTART_SCRIPT = "./refresh_and_restart.sh"
+REFRESH_RESTART_SCRIPT = "./refresh_and_restart.sh studentportal123"
 
 def bitbucket_webhooks(request):
     if request.method == "POST" or request.method == "GET":
