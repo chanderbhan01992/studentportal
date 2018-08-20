@@ -1,6 +1,6 @@
 import subprocess
 import os
-from django.http import HttpResponse
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PATH_TO_REFRESH_RESTART_SCRIPT = os.path.join(BASE_DIR,"resources/scripts/server")
