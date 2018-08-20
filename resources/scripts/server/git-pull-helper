@@ -3,7 +3,6 @@ spawn git pull origin master
 
 #Expect interacts with git authentication
 #It waits for "Username" text and then it sends your username.
-#expect "Username"
-#send "sagban_\r"
+
 
 interact
