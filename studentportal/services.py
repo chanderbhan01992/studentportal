@@ -17,4 +17,5 @@ def bitbucket_webhooks(request):
         subprocess.call([REFRESH_RESTART_SCRIPT,REFRESH_RESTART_KEY]) #passing key as a 1 argv
         print "Finished rerunning"
         return HttpResponse(status = 200)
-    return HttpResponse(status = 404)
+    else:
+        return HttpResponse(status = 404)
