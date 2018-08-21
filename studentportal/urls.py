@@ -59,6 +59,6 @@ urlpatterns = [
 
 ]
 
-if settings.base.DEBUG:
+if settings.base.DEBUG == True or settings.base.DEBUG == False:
     urlpatterns+=static(settings.base.MEDIA_URL, document_root=settings.base.MEDIA_ROOT)
 
