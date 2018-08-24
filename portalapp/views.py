@@ -470,14 +470,14 @@ def headerdb(request):
     #Getting the top 8 departmetn objects only as they are the distinct department
     dept_list=Department.objects.all().order_by('id')[:9]
 
-    intern_company_list=company_table.objects.filter(company_intern_valid=1,valid=1)
-    job_company_list=company_table.objects.filter(company_job_valid=1,valid=1)
+    intern_company_list=company_table.objects.filter(company_intern_valid=1,valid=1).order_by('short_name')
+    job_company_list=company_table.objects.filter(company_job_valid=1,valid=1).order_by('short_name')
     #print dept_list
       # List of experiences '''
     exp_intern_list=experience_internship.objects.filter(valid=1).order_by('-timestamp') # The '-' sign is for descending ordering.
     exp_job_list =experience_placement.objects.filter(valid=1).order_by('-timestamp')
 
-    print exp_job_list
+    #print exp_job_list
     ''' Pagination '''
     '''paginator = Paginator(exp_intern_list,4) #Show 1 experience per page
     
