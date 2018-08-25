@@ -75,19 +75,27 @@ color: black;
 margin:2%;
 }
 
+/* Panel of user*/
+.panel{
+    margin-top: 8%;
+    border:0;
+    border-radius: 0 !important;
+}
+.panel-heading{
+    /*background: #fff !important;*/
+    border: 0;
+    color: #000 !important;
+    border-radius: 0 !important;
+}
 
 .experience-content .mid-content{
 	padding: 2%;
-	padding-left: 20px;
-	/*padding-right: 30px;*/
-	margin: 4%;
 	margin-top: 2%;
-	/*margin-left: 15px;*/
+    margin-bottom: 4%;
 	background-color: white;
 	height: auto;
 	min-height: 200px;
-	/*width: 900px;*/
-	box-shadow: 0 3px 5px rgba(0,0,0,0.16),0 3px 5px rgba(0,0,0,0.23)
+	box-shadow: 0 3px 5px rgba(0,0,0,0.16);
 }
 .experience-content .mid-content .section--left {
     font-size: 1.8rem;
@@ -357,18 +365,29 @@ input.search-company::-webkit-input-placeholder {
     width: 600px;
 }
 
+.navbar-default{
+    background: #171f45  !important;
+}
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover{
+    background-color: rbga(255,255,255,0.5) !important;
+    padding: 0px !important;
+}
 
+.navbar-toggle:hover, .navbar-toggle:focus i{
+    color: #171f45 !important;
+}
 .dropbtn,button	{
     text-transform: uppercase;
     font-family: 'Source Sans Pro', sans-serif;
     color: white;
-    margin: 0 0.8rem;
-    font-size: 1.4rem !important;
+    /*margin: 0px;*/
+    font-size: 1.6rem !important;
     padding: 0;
     letter-spacing: 1px;
     vertical-align: middle;
     display: inline-block;
-    /*line-height: 2.5rem;*/
+    border : 0px !important;
+    /*padding: 5px 10px !important;*/
 }
 
 .main-menu .left-section {
@@ -479,8 +498,7 @@ background-color: rgb(24, 31, 69);
 }
 @media(max-width:768px){
 .cover-image .h1 {
-    font-size: 2rem;
-    margin-top: 2rem;
+    font-size: 2.1rem;
 }
 
 }
@@ -555,15 +573,47 @@ background-color: rgb(24, 31, 69);
     text-align: center;
 }
 .close{
-    background-color: black;
     font-size: 20px !important;
-    color:#fff;
+    text-shadow: 0 0px 0 #fff !important;
+    color:#fff !important;
+    opacity: 1 !important;
 }
 
 #login_content{
     margin-left: calc(50% - 200px);
     width: 350px;
 }
+
+@media(max-width: 420px){
+
+    #login_content{
+        margin-left: calc(50% - 200px);
+        width: 100% !important;
+        margin: 0 !important;
+        height: 100%;
+        border: 0px;
+    }
+    .modal-body{
+        height: 70% !important;
+        vertical-align: center;
+    }
+    .modal-header{
+        height: 15% !important;
+        padding-top: 20px;
+    }
+    .modal-footer{
+        height: 15% !important;
+        vertical-align: center;
+    }
+    .modal-dialog{
+        margin: 0 !important;
+        height: 100% !important;
+    }
+    .modal-body form{
+        padding: 50px 40px;
+    }
+}
+
 #register_content{
 width: 80%;
 margin-left: 10%;
