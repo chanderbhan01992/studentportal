@@ -1,12 +1,15 @@
 import subprocess
 import os
 from django.http import HttpResponse, Http404
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PATH_TO_REFRESH_RESTART_SCRIPT = os.path.join(BASE_DIR,"resources/scripts/server")
 REFRESH_RESTART_SCRIPT = "./refresh_and_restart.sh"
 REFRESH_RESTART_KEY = "studentportal123"
 
+@method_decorator(csrf_exempt)
 def bitbucket_webhooks(request):
     if request.method == "GET" or request.method == "POST":
         print "BitBucket Webhook hit with request :",request
