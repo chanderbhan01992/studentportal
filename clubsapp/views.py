@@ -6,7 +6,7 @@ from django.template import RequestContext
 from portalapp.models import *
 import requests
 import json
-import datetime, dateutil.parser
+# import datetime, dateutil.parser
 #
 # Create your views here.
 #  For trial use this
