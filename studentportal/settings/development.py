@@ -9,7 +9,7 @@ DATABASES = {
     'default': {
        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'portal_storage', #Make it testing later
-        'USER' : 'root',
+        'USER' : 'studentportal',
         'PASSWORD' : 'studentportal123',
         'HOST' : 'localhost',
         'PORT' : '3306',
@@ -18,6 +18,7 @@ DATABASES = {
 
 PROJECT_APPS=[
     'portalapp',
+    'clubsapp',
 ]
 
 INSTALLED_APPS = PREREQUISITE_APPS + PROJECT_APPS
