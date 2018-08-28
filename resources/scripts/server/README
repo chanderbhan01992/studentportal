@@ -8,3 +8,4 @@ git pull origin master
 #It will prompt you for password once, and it will cache it for later use.
 #Hurray. No need to enter passwords.
 #Great
+#hopefully it will work
