@@ -42,7 +42,7 @@ print "Importing Done"
 DIRECTORY_CSVFILES = "/CSVFiles"
 FILE_CSV_COMPANY = BASE_DIR + DIRECTORY_CSVFILES + "/Club.csv"
 FILE_CSV_PERSONALINFORMATION19 = BASE_DIR + DIRECTORY_CSVFILES + "/StudentBatch2019.csv"
-FILE_CSV_PERSONALINFORMATION20 = BASE_DIR + DIRECTORY_CSVFILES + "/StudentBatch2020.csv"
+FILE_CSV_PERSONALINFORMATION20 = BASE_DIR + DIRECTORY_CSVFILES + "/StudentBatch2020ex.csv"
 FILE_CSV_TEST = BASE_DIR + DIRECTORY_CSVFILES + "/test.csv"
 
 
@@ -59,7 +59,7 @@ def randomword(length):
 
 '''Load Data Into PersonalInformation'''
 def loadPersonalInformation():
-    dataReader = csv.reader(open(FILE_CSV_PERSONALINFORMATION20), delimiter=',', quotechar='"')
+    dataReader = csv.reader(open(FILE_CSV_PERSONALINFORMATION20, 'rU'), delimiter=',', quotechar='"')
     r = Roles.objects.filter(short_name="Student").first()
     for row in dataReader:
         if row[0] == "Email":  # Ignore the header row, import everything
@@ -114,10 +114,10 @@ def loadPersonalInformation():
                     html_msg = render_to_string('welcome_email.html',context)  # password_reset_email.html
                     # 'welcome_email.html'
                     # 'contribute_success_email.html'
-                    '''try:
-                        #send_mail(WELCOME_TEXT, "Welcome", FROM_EMAIL, [email], html_message=html_msg)
+                    try:
+                        send_mail(WELCOME_TEXT, "Welcome", FROM_EMAIL, [email], html_message=html_msg)
                     except:
-                        print"Mail was not sent"'''
+                        print"Mail was not sent"
                     #send_mail(WELCOME_TEXT, "Welcome", FROM_EMAIL, [email], html_message=html_msg)
 
                 p.save()
