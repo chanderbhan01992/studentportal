@@ -97,7 +97,7 @@
                             <div class="photo-details">
                               <div id="photo-heading">{{club}}</div>
                               <p>{{club.aboutUs}}</p>
-                              <a href="/clubs/{{club.id}}" class="highlight" id="golden">VIEW MORE</a>
+                              <a href="{% url 'clubName' club.id %}" class="highlight" id="golden">VIEW MORE</a>
                             </div>
 
                           </figcaption>

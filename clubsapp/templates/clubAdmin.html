@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>
+     Student Portal
+    </title>
+
+
+{% include "homeheader.html" %}
+
+
+</head>
+<body>
+{% load staticfiles %}
+
+{% include "headercontent.html" %}
+
+<h1>Login Authentication here:</h1>
+<p>{{ message }}</p>
+<form method="post" action="{% url 'editForm' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <br><br>
+    <input type="submit" value="Login">
+</form>
+</body>
+</html>
