@@ -1,7 +1,7 @@
 from base import *
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ''' Work with this db while working on server'''
 DATABASES = {

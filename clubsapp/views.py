@@ -86,21 +86,17 @@ def editForm(request):
             #username = obj['username']
             password = obj['password']
 
-            print password
-            #valifate the user there
-
             club = Club.objects.get(id=clubname)
 
             try:
                 club_admin = ClubAdmin.objects.get(club = club)
             except:
                 return render(request, "clubAdmin.html", {"message": "Your Club Admin isn't registered with us.", "form": form,'page_name': "","fname":""})
-
+            #validate password
             if password == club_admin.password:
 
 
                 contact_info = ContactDetails.objects.get(id=club.id)
-                # faculty_info = faculty_data.get(id=club.id)
                 submit_display = "block"
                 login_display = "none"
                 logout_display = "block"
@@ -127,12 +123,6 @@ def editForm(request):
                     }
                 )
 
-                # faculty_form = FacultyForm(
-                #     initial={
-                #         'name': faculty_info.name,
-                #         'link': faculty_info.link,
-                #     }
-                # )
 
                 form_display = "block"
                 context = {
@@ -143,7 +133,6 @@ def editForm(request):
                     "clubId": club.id,
                     "club_form":club_form,
                     "contact_details_form": contact_details_form,
-                    # "faculty_form": faculty_form,
                     "form_display": form_display,
                     "id_display": 'block',
                     "submit_display": submit_display,
@@ -162,7 +151,6 @@ def editForm(request):
         clubname = request.session["admin"]
         club = Club.objects.get(id=clubname)
         contact_info = ContactDetails.objects.get(id=club.id)
-        # faculty_info = faculty_data.get(id=club.id)
         submit_display = "block"
         login_display = "none"
         logout_display = "block"
@@ -189,13 +177,6 @@ def editForm(request):
             }
         )
 
-        # faculty_form = FacultyForm(
-        #     initial={
-        #         'name': faculty_info.name,
-        #         'link': faculty_info.link,
-        #     }
-        # )
-
         form_display = "block"
         context = {
             "fname": "",
@@ -205,7 +186,6 @@ def editForm(request):
             "clubId": club.id,
             "club_form": club_form,
             "contact_details_form": contact_details_form,
-            # "faculty_form": faculty_form,
             "form_display": form_display,
             "id_display": 'block',
             "submit_display": submit_display,
@@ -222,9 +202,10 @@ def clubUpdate(request):
 
     if request.method == 'POST' or request.session.get("admin", False):
 
-
+        '''Getting Club ID Only from sessions'''
         clubname = request.session["admin"]
-        #club_id = request.POST.get('clubId', False)
+
+        '''Updating Club Details'''
         club = Club.objects.get(id=clubname)
         club_name = request.POST.get('displayName', False)
         about_us = request.POST.get('aboutUs', False)
@@ -240,15 +221,23 @@ def clubUpdate(request):
         club.clubType = clubType
         club.facultyInCharge1 = facultyInCharge1
         club.facultyInCharge2 = facultyInCharge2
-
-
-        # TODO: Update other form fields
         club.save()
 
-
-        club = Club.objects.get(id=clubname)
+        '''Updating Contact Details'''
         contact_info = ContactDetails.objects.get(id=club.id)
-        # faculty_info = faculty_data.get(id=club.id)
+        email = request.POST.get('email', False)
+        website = request.POST.get('website', False)
+        telephone1 = request.POST.get('telephone1', False)
+        telephone2 = request.POST.get('telephone2', False)
+
+        contact_info.email = email
+        contact_info.website = website
+        contact_info.telephone1 = telephone1
+        contact_info.telephone2 = telephone2
+        contact_info.save()
+
+
+
         submit_display = "block"
         login_display = "none"
         logout_display = "block"
@@ -274,13 +263,6 @@ def clubUpdate(request):
                 'telephone2': contact_info.telephone2,
             }
         )
-
-        # faculty_form = FacultyForm(
-        #     initial={
-        #         'name': faculty_info.name,
-        #         'link': faculty_info.link,
-        #     }
-        # )
 
         form_display = "block"
         context = {
@@ -300,16 +282,6 @@ def clubUpdate(request):
             "logout_display": logout_display,
             "update_display": 'none',
         }
-
-        # context = {
-        #     "title": 'Club Data updated successfully!',
-        #     "submit_display": 'none',
-        #     "login_display": 'none',
-        #     "logout_display": 'block',
-        #     "update_display": 'block',
-        #     "form_display": 'none',
-        #     "id_display": 'none',
-        # }
         return render(request, "editform.html",context)
     form = clubAdmin(request.POST)
     return render(request, "clubAdmin.html", {"message": "Kindly Login First", "form": form,'page_name': "","fname":""})
