@@ -18,12 +18,12 @@ class ClubForm(forms.ModelForm):
         ]
         # ADD WIDGETS HERE
         widgets = {
-            'displayName': Textarea(attrs={'cols': 'auto', 'rows': 1, 'class': 'form-control'}),
-            'aboutUs': Textarea(attrs={'cols': 'auto', 'rows': 'auto'}),
-            'yearOfStart': Textarea(attrs={'cols': 'auto', 'rows': 1}),
-            'clubType': Textarea(attrs={'cols': 'auto', 'rows': 'auto'}),
-            'facultyInCharge1': Textarea(attrs={'cols': 'auto', 'rows': 1}),
-            'facultyInCharge2': Textarea(attrs={'cols': 'auto', 'rows': 1}),
+            'displayName': forms.TextInput(attrs={'cols': 'auto', 'rows': 1, 'class': 'form-control '}),
+            'aboutUs': forms.TextInput(attrs={'cols': 'auto', 'rows': 'auto', 'class': 'form-control'}),
+            'yearOfStart': forms.TextInput(attrs={'cols': '2', 'rows': 1, 'class': 'form-control '}),
+            'clubType': forms.TextInput(attrs={'cols': '2', 'rows': '1', 'class': 'form-control '}),
+            'facultyInCharge1': forms.TextInput(attrs={'cols': 'auto', 'rows': 1, 'class': 'form-control '}),
+            'facultyInCharge2': forms.TextInput(attrs={'cols': 'auto', 'rows': 1, 'class': 'form-control'}),
         }
 
     # def __init__(self, *args, **kwargs):
@@ -43,6 +43,12 @@ class ContactDetailsForm(forms.ModelForm):
             'telephone2',
         ]
         # ADD WIDGETS HERE
+        widgets = {
+            'email': forms.TextInput(attrs={'cols': 'auto', 'rows': 1, 'class': 'form-control '}),
+            'website': forms.TextInput(attrs={'cols': 'auto', 'rows': 1, 'class': 'form-control'}),
+            'telephone1' : forms.TextInput(attrs={'cols': 'auto', 'rows': 1, 'class': 'form-control'}),
+            'telephone2' : forms.TextInput(attrs={'cols': 'auto', 'rows': 1, 'class': 'form-control'}),
+        }
 
 # class FacultyForm(forms.ModelForm):
 #
@@ -84,4 +90,7 @@ class clubAdmin(forms.Form):
     password = forms.CharField(initial='clubhead',
                                max_length=32,
                                widget=forms.PasswordInput)
+
+    clubname.widget.attrs.update({'class': 'form-control'})
+    password.widget.attrs.update({'class': 'form-control'})
 

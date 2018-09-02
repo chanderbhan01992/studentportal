@@ -17,22 +17,29 @@
 
 {% include "headercontent.html" %}
 {% load static %}
+<div class="container">
+    <div class="edit-form">
+        <h2 class="edit-h2">{{ title }}</h2>
+        <h3 class="edit-h3">{{ subtitle }}</h3>
+        <p class="edit-p" style="color: red";>{{ message }}</p>
 
-<h2>{{ title }}</h2>
-<h3>{{ subtitle }}</h3>
-<p>{{ message }}</p>
 
-<form method="post" action="{% url 'updateClub' %}">
-    {% csrf_token %}
-    <input type="text" readonly name="clubId" value="{{ clubId }}" aria-labelledby="Club ID: " style="display: {{ id_display }};">
-    {{ club_form.as_p }}
-    {{ contact_details_form.as_p }}
-    {{ faculty_form.as_p }}
+        <form method="post" action="{% url 'updateClub' %}">
+            {% csrf_token %}
+            <div type="text" readonly name="clubId" class="edit-id" value="{{ clubId }}" aria-labelledby="Club ID: " style="display: {{ id_display }};">Club ID : {{ clubId }}</div>
+            <div class="row"><div class="col-md-6">{{ club_form.as_p }}</div>
+                <div class="col-md-6">{{ contact_details_form.as_p }}</div></div>
+{#            <div class="row">{{ faculty_form.as_p }}</div>#}
+            <div class="edit-button-group">
+                <input type="submit" value="Update" class="edit-btn edit-flex" style="display:{{ submit_display }};">
+                <a href="{% url 'clubLogin' %} " class=""><input type="button" value="Login" class="edit-btn" style="display:{{ login_display }}"></a>
+                <a href="{% url 'clubLogout' %}" class=""><input type="button" value="Logout" class="edit-btn" style="display:{{ logout_display }}"></a>
+                <a href="{% url 'editForm' %}" class=""><input type="button" value="Update again!" class="edit-btn" style="display:{{ update_display }}"></a>
+            </div>
 
-    <input type="submit" value="Update" style="display:{{ submit_display }}">
-    <a href="{% url 'clubLogin' %}"><input type="button" value="Login" style="display:{{ login_display }}"></a>
-    <a href="{% url 'clubLogout' %}"><input type="button" value="Logout" style="display:{{ logout_display }}"></a>
-    <a href="{% url 'editForm' %}"><input type="button" value="Update again!" style="display:{{ update_display }}"></a>
-</form>
+        </form>
+    </div>
+</div>
+{% include "footer.html" %}
 </body>
 </html>
