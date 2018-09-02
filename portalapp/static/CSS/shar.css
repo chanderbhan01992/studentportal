@@ -321,3 +321,6 @@ table:hover{
 	transform: scale(1.02,1.02);
 
 }
+.table td{
+	padding: 15px 18px !important;
+}
