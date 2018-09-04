@@ -91,3 +91,10 @@ class ActivityPhotoRelationship ( models.Model ):
     photo = models.ForeignKey ( Photos , null=False )
 
 
+class ClubAdmin(models.Model):
+    id = models.AutoField(primary_key=True, null=False)
+    club = models.ForeignKey ( Club , null=False )
+    password = models.CharField(max_length=500, null=True)
+
+    def __unicode__(self):
+        return self.club.shortName
