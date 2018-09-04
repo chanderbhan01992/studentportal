@@ -7,7 +7,7 @@
      Student Portal
     </title>
 
-
+{% load staticfiles %}
 {% include "homeheader.html" %}
 
 
@@ -26,6 +26,8 @@
         {{ form.as_p }}
         <br><br>
         <input type="submit" class="btn" value="Login" style="background: #181F45!important;color: #fff;">
+        <br>
+        <p style="color: #1a2e40; padding-top: 20px;"><a href="{% url 'clubforgotpass' %}" style="color: #1a2e40">Forgot Password?</a> </p>
     </form>
     </div>
 </div>

@@ -45,7 +45,49 @@ nav {
     background-color: #181F45;
     border: none;
     padding-top: 14px;
+	display: block;
 }
+
+
+#myBtnClubs{
+    background-color: #181F45;
+    border: none;
+    padding-top: 14px;
+	text-transform: uppercase;
+	text-transform: uppercase;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: white;
+    /* margin: 0px; */
+    font-size: 1.6rem !important;
+    padding: 0;
+    letter-spacing: 1px;
+    vertical-align: middle;
+    display: inline-block;
+    border: 0px !important;
+    margin-left:5%;
+    padding-left:10px;
+    padding-bottom:15px;
+	display: block;
+}
+.dropdown-menu #myBtnClubs a:hover{
+    background-color: #181F45 !important;
+	background-image: linear-gradient(to bottom,#181F45 0,#181F45 100%) !important;
+    color: #fff;
+}
+#myBtnClubs:hover{
+    background-color: #181F45!important;
+    color: #fff !important;
+}
+#myBtnClubs:hover{
+    background-color: #181F45!important;
+    color: #fff !important;
+}
+#clubsli a:hover{
+    background-color: #181F45!important;
+    color: #fff !important;
+	background-image: linear-gradient(to bottom,#181F45 0,#181F45 100%)
+}
+
 
 /*.container-fluid{*/
     /*margin-left: 0 !important;*/
