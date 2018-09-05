@@ -366,3 +366,11 @@ table:hover{
 .table td{
 	padding: 15px 18px !important;
 }
+
+
+@media (max-width: 767px){
+	.navbar-default .navbar-nav .open .dropdown-menu>li>a {
+		text-align: center !important;
+
+}
+}
