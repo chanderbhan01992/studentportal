@@ -7,4 +7,6 @@ urlpatterns = [
     url(r'^clublogout$', 'clubsapp.views.clubLogout', name="clubLogout"),
     url(r'^updateclub$', 'clubsapp.views.clubUpdate',name="updateClub"),
     url(r'^([+-]?[1-9]\d*|0)/$', 'clubsapp.views.clubHome',name="clubName"),
+    url ( r'^forgotpass/$' , 'clubsapp.views.clubforgotpass', name="clubforgotpass"),
+    url ( r'^resetpass/(?P<fkey>.*)/$' , 'clubsapp.views.clubresetpass', name="clubresetpass"),
 ]

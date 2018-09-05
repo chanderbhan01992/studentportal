@@ -98,3 +98,12 @@ class ClubAdmin(models.Model):
 
     def __unicode__(self):
         return self.club.shortName
+
+class ClubForgotPassKeys(models.Model):
+    key = models.CharField(max_length=20, null=True)
+    club = models.ForeignKey(Club, null=True)
+    is_valid = models.BooleanField(default=True)
+    timestamp = models.DateTimeField(default=datetime.datetime.now(), null=False)
+
+    def __unicode__(self):
+        return self.club.shortName + ' ' + self.club.contact.email

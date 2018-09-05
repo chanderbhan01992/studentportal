@@ -108,15 +108,16 @@
 
         <!-- Error msgs from backend/authentication error -->
         <div name="error_block" id="err_block">
-            <ul>
+{#            <ul>#}
             {% if err_msg_fp %}
-                {% for i in err_msg_fp %}
-                {% if i != "" %}
-                <li style="color:red;">{{ i }}</li>
-                {% endif %}
-                {% endfor %}
+{#                {% for i in err_msg_fp %}#}
+{#                {% if i != "" %}#}
+{#                <li style="color:red;">{{ i }}</li>#}
+{#                {% endif %}#}
+{#                {% endfor %}#}
+                <p style="color:red; text-align: center;padding-top:10px;" >{{ err_msg_fp }}</p>
             {% endif %}
-            </ul>
+{#            </ul>#}
         </div>
 
 	
@@ -163,3 +164,77 @@
 </div>
 </div>
 <!-- Forgot modal finished -->
+
+
+<!-- FORGOTPASS Club Modal -->
+  <div class="modal fade" id="myforgotModalClub" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content" id="forgotpass_content">
+
+        <!-- Modal Header -->
+         <div class="modal-header" style="padding:35px 50px;">
+          <button type="button" class="close" data-dismiss="modal"><i class="material-icons" style="color:#fff !important;">clear</i></button>
+          <h3 style="color:#fff !important;">Forgot Password</h3>
+        </div>
+        <!-- Modal header finished -->
+
+        <!-- Error msgs from backend/authentication error -->
+        <div name="error_block" id="err_block">
+{#            <ul>#}
+            {% if err_msg_fp %}
+{#                {% for i in err_msg_fp %}#}
+{#                {% if i != "" %}#}
+{#                <li style="color:red;">{{ i }}</li>#}
+{#                {% endif %}#}
+{#                {% endfor %}#}
+                <p style="color:red; text-align: center;padding-top:10px;" >{{ err_msg_fp }}</p>
+            {% endif %}
+{#            </ul>#}
+        </div>
+
+
+        <!-- Modal Body -->
+        <div class="modal-body" style="padding:40px 50px;">
+
+{% csrf_token %}
+<form method="post" name="fp_form" action="{% url 'clubforgotpass' %}" onsubmit="return validate_fp()">
+{% csrf_token %}
+
+    <div class="form-group">
+
+            <div class="form-group">
+
+              <div class="inner-addon left-addon">
+                <input name="email" type="text"  class="form-control" id="email" required placeholder="Email ID" />
+			  <font color='red'> <DIV id="emr"> </DIV> </font>
+              </div>
+            </div>
+
+{#            <div class="form-group">#}
+{##}
+{#                  <input name="clg_id" type="text" class="form-control" id="clg_id" required placeholder="Club ID"/>#}
+{#		  <font color='red'> <DIV id="cidr1"> </DIV> </font>#}
+{#            </div>#}
+
+                 <button type="submit" class="btn btn-block btn-login">Send Email</button>
+
+            </div>
+
+</form>
+
+        </div>
+         <!-- Modal body finished -->
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+
+        </div>
+        <!-- Modal footer finished -->
+
+      </div>
+        <!-- Modal content finshed -->
+</div>
+</div>
+<!-- Forgot modal CLub finished -->

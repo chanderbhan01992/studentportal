@@ -65,12 +65,14 @@ def adminLogin(request):
     #args.update({'clubs': clubs})
     args.update({'form': clubAdminForm})
     args.update(csrf(request))
+    args.update(headerdb(request))
     return render_to_response('clubAdmin.html', args)
 
 
 @cache_control(no_cache=True,must_revalidate=True,no_store=True)
 def clubLogout(request):
     request.session['admin'] = False
+
     return HttpResponseRedirect('/clubs/clubadmin')
 
 @csrf_protect
@@ -141,6 +143,8 @@ def editForm(request):
                     "update_display": 'none',
                 }
                 request.session["admin"] = club.id
+                context.update(csrf(request))
+                context.update(headerdb(request))
 
                 return render(request, "editform.html", context)
             else:
@@ -193,6 +197,8 @@ def editForm(request):
             "logout_display": logout_display,
             "update_display": 'none',
         }
+        context.update(csrf(request))
+        context.update(headerdb(request))
         return render(request, "editform.html", context)
 
     else:
@@ -282,6 +288,147 @@ def clubUpdate(request):
             "logout_display": logout_display,
             "update_display": 'none',
         }
+        context.update(csrf(request))
+        context.update(headerdb(request))
         return render(request, "editform.html",context)
     form = clubAdmin(request.POST)
     return render(request, "clubAdmin.html", {"message": "Kindly Login First", "form": form,'page_name': "","fname":""})
+
+
+'''  new forgot password Atharva '''
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def clubresetpass(request, fkey):
+   if request.method == 'POST':
+       # clg_id = base64.urlsafe_b64decode(clg_id.encode("ascii"))
+       # print
+       # clg_id
+       pass1 = request.POST.get('pass1', '')
+       pass2 = request.POST.get('pass2', '')
+       if len(pass1) >= 8:
+           if pass1 == pass2:
+               # obj1 = Personinformation.objects.filter(clg_id=clg_id).first()
+               try:
+                   fpk_obj = ClubForgotPassKeys.objects.get(key=fkey, is_valid=True)
+                   obj1 = fpk_obj.club
+                   obj = ClubAdmin.objects.filter(club=obj1).first()
+                   obj.password = make_password(pass1)
+                   fpk_obj.is_valid = False
+                   fpk_obj.save()
+                   # print
+                   # obj.password
+                   obj.save()
+                   return HttpResponseRedirect('/home/clubs/')
+               except ClubForgotPassKeys.DoesNotExist:
+                   pass
+                   '''err_msg = "Link is either expired or invalid"
+                   args = {'err_msg': err_msg}
+                   args.update(headerdb(request))
+                   args.update(csrf(request))
+                   return render_to_response('resetpass.html', args)'''
+           else:
+               err_msg = "Passwords don't match"
+               args = {'err_msg': err_msg}
+               args.update(headerdb(request))
+               args.update(csrf(request))
+               return render_to_response('resetpass.html', args)
+       else:
+           err_msg = "Minimum 8 characters required"
+           args = {'err_msg': err_msg}
+           args.update(headerdb(request))
+           args.update(csrf(request))
+           args.update({'page_name':'Reset Password'})
+           return render_to_response('resetpass.html', args)
+
+   # else : return HttpResponseRedirect('/forgetpass/%d' clg_id)
+   try:
+       fpk_obj = ClubForgotPassKeys.objects.get(key=fkey, is_valid=True)
+       args = {}
+       args.update(headerdb(request))
+       args.update(csrf(request))
+       args.update({'page_name':'Reset Password'})
+       return render_to_response('resetpass.html', args)
+   except ClubForgotPassKeys.DoesNotExist:
+       fname = ""
+       err_msg = ["Invalid or Expired link"]
+       open_modal1 = 6
+       args = {'fname': fname, 'open_modal1': open_modal1, 'err_msg_fp': err_msg,}
+       args.update(headerdb(request))
+       return render(request, 'homepage.html', args)
+
+
+def clubforgotpass(request):
+   if request.method == "POST":
+       #clg_id = request.POST.get('clg_id')
+       email = request.POST.get('email')
+       err_msg = server_validations.isvalid_clubforgotpass(email)
+       print err_msg
+       flag = 0
+       for i in err_msg:
+           if i != "":
+               flag = 1
+               # fname = ""
+
+       if flag == 0:
+           # if Personinformation.objects.filter(clg_id=clg_id).first() is not None:
+           if ContactDetails.objects.filter(email=email).first() is not None:
+               # link = request.META['HTTP_HOST']+"/resetpass/%s" %clg_id
+               # email_msg="Click on the following link to reset your password:
+               # \n"+request.META['HTTP_HOST']+"/resetpass/%s" % base64.urlsafe_b64encode(clg_id)
+               # emailobj = Personinformation.objects.filter(clg_id=clg_id).first()
+               # New Forgot Password Implementation by Atharva
+               email_obj = ContactDetails.objects.filter(email=email).first()
+               print email_obj
+               club = Club.objects.get(contact=email_obj)
+               print club
+               email = email_obj
+               try:
+                   fpk_obj = ClubForgotPassKeys.objects.get(club=club, is_valid=True)
+                   uid = fpk_obj.key
+               except ClubForgotPassKeys.DoesNotExist:
+                   uid = "club" + get_random_string(length=10)
+                   forgotpasskey_obj = ClubForgotPassKeys()
+                   forgotpasskey_obj.club = club
+                   forgotpasskey_obj.key = uid
+                   forgotpasskey_obj.save()
+
+               # person_obj=Personinformation.objects.filter(clg_id=clg_id).first()
+               # link = request.META['HTTP_HOST']+"/resetpass/%s" % base64.urlsafe_b64encode(clg_id)
+               link = request.META['HTTP_HOST'] + "/clubs/resetpass/" + uid
+               email_msg = loader.render_to_string('password_reset_email.html',
+                                                   {'name': club.shortName, 'link': link})
+               # password_reset_email.html
+               try:
+                   send_mail('Student portal password reset for clubs', "This is it", FROM_EMAIL,[email], html_message=email_msg)
+                   return HttpResponseRedirect('/home/?forgotpass_emailsent=' + str(1))
+               except:
+                    print "There is some error semding mail"
+               return HttpResponseRedirect('/home/?forgotpass_emailsent='+str(2))
+           # else:
+           #     fname = ""
+           #     err_msg = ["Wrong combination of email and clgid"]
+           #     open_modal1 = 6
+           #     args = {'fname': fname, 'open_modal1': open_modal1, 'err_msg_fp': err_msg, 'clg_id': clg_id}
+           #     args.update(headerdb(request))
+           #     return render(request, 'homepage.html', args)
+           else:
+               fname = ""
+               err_msg = ["Club not registered"]
+               open_modal1 = 6
+               args = {'fname': fname, 'open_modal1': open_modal1, 'err_msg_fp': err_msg, 'clg_id': email}
+               args.update(headerdb(request))
+               return render(request, 'homepage.html', args)
+       else:
+           fname = ""
+           err_msg = "Something went wrong"
+           # print "frontend error"
+           open_modal1 = 6  # forgot pass modal
+           args = {'fname': fname, 'open_modal1': open_modal1, 'err_msg_fp': err_msg, 'clg_id': email}
+           args.update(headerdb(request))
+           return render(request, 'homepage.html', args)
+
+   fname = ""
+   print "frontend error"
+   open_modal1 = 6  # forgot pass modal
+   args = {'fname': fname, 'open_modal1': open_modal1}
+   args.update(headerdb(request))
+   return render(request, 'homepage.html', args)

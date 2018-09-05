@@ -136,6 +136,10 @@ def isvalid_forgotpass(email,clg_id):
 	err_msg=[isvalid_email(email),isvalid_clgid(clg_id)]
 	return err_msg
 
+def isvalid_clubforgotpass(email):
+	err_msg=[isvalid_email(email)]
+	return err_msg
+
 
 def isvalid_dropdown(feild):
 	err_msg=""
