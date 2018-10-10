@@ -41,7 +41,9 @@ EMAIL_HOST_PASSWORD = 'lengthyproject'
 # Application definition
 # Holds the names of all Django applications that are activated in this django instance.
 PREREQUISITE_APPS= [
-    'django.contrib.admin', #The admin site. 
+    'dal',
+    'dal_select2',
+    'django.contrib.admin', #The admin site.
     'django.contrib.auth', #An authentication system.
     'django.contrib.contenttypes', #A framework for content types.
     'django.contrib.sessions', #A session framework.

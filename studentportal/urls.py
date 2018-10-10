@@ -55,7 +55,8 @@ urlpatterns = [
 
     url ( r'^home/aboutus/$' , 'portalapp.views.aboutus' ) ,
     url ( r'^clubs/' , include ( 'clubsapp.urls' ) ) ,
-    url ( r'^bitbucket/webhook/$' , 'studentportal.services.bitbucket_webhooks' )
+    url ( r'^bitbucket/webhook/$' , 'studentportal.services.bitbucket_webhooks' ),
+    url ( r'^companyprovider/$' , 'portalapp.views.homepage' ) ,
 
 ]
 

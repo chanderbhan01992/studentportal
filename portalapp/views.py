@@ -516,30 +516,46 @@ def add_program(request):
 
 
 def homepage(request):
-    if request.method == "POST":
-        #print request.session['fname']
-        print "was successfully Logged out"
-        return logout(request)
+    query = request.GET.get('query', '-1')
+    if query == '-1':
+        if request.method == "POST":
+            #print request.session['fname']
+            print "was successfully Logged out"
+            return logout(request)
 
-    context_ins={'open_modal1':3}
-    context_ins.update(headerdb(request))
+        context_ins={'open_modal1':3}
+        context_ins.update(headerdb(request))
 
-    if context_ins['loginas'] == "HOD":
-        ''' to display the programs of the HOD '''
-        clg_id = request.session['clg_id']
-        deptid = Personinformation.objects.get(clg_id=clg_id).deptid
-        short_name = Department.objects.get(id=deptid).short_name
-        deptobj = Department.objects.filter(short_name=short_name)
+        if context_ins['loginas'] == "HOD":
+            ''' to display the programs of the HOD '''
+            clg_id = request.session['clg_id']
+            deptid = Personinformation.objects.get(clg_id=clg_id).deptid
+            short_name = Department.objects.get(id=deptid).short_name
+            deptobj = Department.objects.filter(short_name=short_name)
 
-        context_ins['deptobj'] = deptobj
+            context_ins['deptobj'] = deptobj
 
-    context_ins['page_name']="homepage"
-    args = {}
-    args.update(csrf(request))
-    return render_to_response(
-    'homepage.html',context_ins,context_instance=RequestContext(request)
-    )
-
+        context_ins['page_name']="homepage"
+        args = {}
+        args.update(csrf(request))
+        return render_to_response(
+        'homepage.html',context_ins,context_instance=RequestContext(request)
+        )
+    elif query =='':
+        return HttpResponse("Search Something")
+    else:
+        ls = company_table.objects.filter(company_name__icontains=query)
+        names = [{'name':c.company_name, 'id':c.id }for c in ls]
+        print('ok1')
+        htmlstr = '<ul>'
+        for name in names:
+            print('ok2')
+            print(str(name['name'])+str(name['id']))
+            htmlstr = htmlstr+'<li><a href=http://studentportal.vnit.ac.in/home/company_select/'+str(name['id'])+'/job/>'+str(name['name'])+'</a></li>'
+        htmlstr = htmlstr+'</ul>'
+        print(htmlstr)
+        print(ls)
+        return HttpResponse(htmlstr)
 
 @cache_control(no_cache=True,must_revalidate=True,no_store=True)
 def company_placements(request,comp_id=0):

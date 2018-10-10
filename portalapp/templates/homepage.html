@@ -142,8 +142,34 @@ Already existing programs of your department :
 
 </div>
 </div>
+<script>
+var xhr = new XMLHttpRequest();
+var results = [];
+var names = [];
+function processRequest(e){
+var response = xhr.responseText;
+pt = 0;
+document.getElementById("p").innerHTML = response;
+results = response.split("<br>");
+document.getElementById("p").innerHtml = response;
+}
+function oku(){
+console.log("pku");
+var tt = document.getElementById("ipbox").value;
+xhr.open('GET', "http://127.0.0.1:8000/companyprovider/?query="+tt, true);
+xhr.send();
+xhr.addEventListener("readystatechange", processRequest, true);
+}
 
-
+</script>
+<form>
+Search: <input type="text" name="query" id="ipbox" onkeyup="oku()"></input>
+</form>
+<p id="p">
+Search Something!
+</p>
+<p id="img">
+</p>
 
 {% include "footer.html" %}
 
